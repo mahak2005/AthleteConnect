@@ -1,9 +1,9 @@
 import type React from "react"
 import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
+// import { ThemeProvider } from "@/components/theme-provider"
+// import { Toaster } from "@/components/ui/toaster"
 import Header from "@/components/header"
-import Footer from "@/components/footer"
+import { Footer } from "@/components/footer"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -22,12 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+        {/* <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange> */}
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
-          <Toaster />
-        </ThemeProvider>
+          {/* <Toaster /> */}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   )
