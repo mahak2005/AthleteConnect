@@ -8,6 +8,11 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 
+interface User {
+  name: string;
+  role: "athlete" | "coach";
+}
+
 const navItems = [
   { name: "Home", path: "/" },
   { name: "Match With Athletes", path: "/match-with-athletes" },
@@ -21,7 +26,7 @@ const navItems = [
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user")
@@ -61,9 +66,9 @@ export function Navbar() {
               />
             </motion.div>
             <div className="text-xl font-medium">
-                <span className="text-teal-600">Athlete</span>
-                <span className="text-gray-900">Connect</span>
-              </div>
+              <span className="text-teal-600">Athlete</span>
+              <span className="text-gray-900">Connect</span>
+            </div>
           </Link>
           {/* <div className="flex items-center gap-2">
               <div className="h-10 w-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
@@ -115,7 +120,7 @@ export function Navbar() {
               </>
             )}
           </div>
-          
+
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>

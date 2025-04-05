@@ -36,7 +36,7 @@ export default function MatchHero() {
   const [location, setLocation] = useState<string>("")
   const [showAthletes, setShowAthletes] = useState(false)
   const [athletes, setAthletes] = useState<Athlete[]>([])
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
@@ -52,7 +52,7 @@ export default function MatchHero() {
       }
       const data = await response.json()
       // Transform the data to match the expected format
-      const transformedAthletes = data.map((athlete: any) => ({
+      const transformedAthletes: Athlete[] = data.map((athlete: Athlete) => ({
         _id: athlete._id,
         name: athlete.name,
         gender: athlete.basicInfo.gender || '',

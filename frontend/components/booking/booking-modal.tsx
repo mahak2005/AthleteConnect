@@ -11,21 +11,30 @@ interface BookingModalProps {
   onClose: () => void
   coach: Coach
   selectedPackage:
-    | {
-        id: string
-        title: string
-        price: number
-        duration?: string
-        type?: string
-      }
-    | undefined
+  | {
+    id: string
+    title: string
+    price: number
+    duration?: string
+    type?: string
+  }
+  | undefined
+}
+
+interface BookingDetails {
+  date: string;
+  time: string;
+  coach: string;
+  package?: string;
+  price?: number;
+  meetingLink: string;
 }
 
 export function BookingModal({ isOpen, onClose, coach, selectedPackage }: BookingModalProps) {
   const [step, setStep] = useState<"form" | "confirmation">("form")
-  const [bookingDetails, setBookingDetails] = useState<any>(null)
+  const [bookingDetails, setBookingDetails] = useState<BookingDetails | null>(null)
 
-  const handleFormSubmit = (formData: any) => {
+  const handleFormSubmit = (formData: { date: string; time: string }) => {
     // In a real app, you would send this data to your backend
     console.log("Booking form submitted:", formData)
 
