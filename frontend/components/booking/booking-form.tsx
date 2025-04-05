@@ -51,6 +51,7 @@ export function BookingForm({ coach, packageDetails, onSubmit }: BookingFormProp
 
   // Generate available time slots based on coach availability
   const getAvailableTimeSlots = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const today = new Date().getDay() as DayNumber
     const availableDays = coach.availability.map((day): DayNumber => {
       switch (day) {

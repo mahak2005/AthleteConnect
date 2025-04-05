@@ -46,6 +46,7 @@ export default function AthletePage() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [athleteData, setAthleteData] = useState<AthleteData | null>(null)
 
   const fetchAthleteProfile = useCallback(async () => {
