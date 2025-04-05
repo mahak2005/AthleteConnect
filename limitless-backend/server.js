@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const athleteRoutes = require('./routes/athlete');
+const path = require('path');
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(cors({
 
 // Middleware
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // MongoDB Connection with retry logic
 const connectWithRetry = () => {

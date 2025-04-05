@@ -5,16 +5,16 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 // import { Input } from "@/components/ui/input"
-import { useState } from "react"
-import { AthleteGrid } from "@/components/sections/athlete-grid"
+import { useState, useEffect } from "react"
+import AthleteGrid from "@/components/sections/athlete-grid"
 // import router from "next/router"
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
 import { Sparkles } from "lucide-react"
 
 // const sportsLeagues = ["MLB/BASEBALL", "NFL/FOOTBALL", "NBA/BASKETBALL", "NHL/HOCKEY", "COLLEGE"]
 
 interface Athlete {
-  id: number
+  _id: string
   name: string
   gender: string
   team: string
@@ -22,107 +22,53 @@ interface Athlete {
   location: string
   image: string
   status: string
+  basicInfo: {
+    gender: string
+    state: string
+    sport: string
+    currentRanking: string
+  }
 }
-
-const athletes: Athlete[] = [
-  {
-    id: 1,
-    name: "Aakash Chopra",
-    gender: "male",
-    team: "Independent",
-    sport: "Javelin Throw",
-    location: "Haryana",
-    image: "/jav.jpg",
-    status: "National Icon",
-  },
-  {
-    id: 2,
-    name: "Priya Deshmukh",
-    gender: "female",
-    team: "Independent",
-    sport: "Badminton",
-    location: "Punjab",
-    image: "/badmin.jpg",
-    status: "National Player",
-  },
-  {
-    id: 3,
-    name: "Aarav Patel",
-    gender: "male",
-    team: "Hockey- Delhi",
-    sport: "Hockey",
-    location: "Delhi",
-    image: "/hockey.jpg",
-    status: "State Player",
-  },
-  {
-    id: 4,
-    name: "Rahul Mehra",
-    gender: "male",
-    team: "Independent",
-    sport: "Tennis",
-    location: "Punjab",
-    image: "/ten.jpg",
-    status: "Upcoming Athlete",
-  },
-  {
-    id: 5,
-    name: "Ishita Jha",
-    gender: "female",
-    team: "Play-India",
-    sport: "Basketball",
-    location: "Manipur",
-    image: "/basket.jpg",
-    status: "Legend",
-  },
-  {
-    id: 6,
-    name: "Rohan Bopanna",
-    gender: "male",
-    team: "Independent",
-    sport: "Athletics",
-    location: "Maharastra",
-    image: "/ath.jpg",
-    status: "National Player",
-  },
-  {
-    id: 7,
-    name: "Dipa Karmakar",
-    gender: "female",
-    team: "Independent",
-    sport: "Gymnastics",
-    location: "Haryana",
-    image: "/badmin.jpg",
-    status: "National Icon",
-  },
-  {
-    id: 8,
-    name: "Rahul Sachdeva",
-    gender: "male",
-    team: "RCB",
-    sport: "Cricket",
-    location: "Delhi",
-    image: "/ten.jpg",
-    status: "National Icon",
-  },
-  {
-    id: 9,
-    name: "Rishit Sharma",
-    gender: "male",
-    team: "Team ARB",
-    sport: "Cricket",
-    location: "Haryana",
-    image: "/basket.jpg",
-    status: "Upcoming Athlete",
-  },
-]
 
 export default function MatchHero() {
   const [selectedSport, setSelectedSport] = useState<string>("")
   const [selectedGender, setSelectedGender] = useState<string>("")
   const [location, setLocation] = useState<string>("")
   const [showAthletes, setShowAthletes] = useState(false)
+  const [athletes, setAthletes] = useState<Athlete[]>([])
+  const [loading, setLoading] = useState(true)
   const router = useRouter()
+
+  useEffect(() => {
+    fetchAthletes()
+  }, [])
+
+  const fetchAthletes = async () => {
+    try {
+      const response = await fetch('http://localhost:5001/api/athlete/all')
+      if (!response.ok) {
+        throw new Error('Failed to fetch athletes')
+      }
+      const data = await response.json()
+      // Transform the data to match the expected format
+      const transformedAthletes = data.map((athlete: any) => ({
+        _id: athlete._id,
+        name: athlete.name,
+        gender: athlete.basicInfo.gender || '',
+        team: 'Independent', // Default value since it's not in the schema
+        sport: athlete.basicInfo.sport || '',
+        location: athlete.basicInfo.state || '',
+        image: athlete.image || '/ath.jpg',
+        status: athlete.basicInfo.currentRanking || '',
+        basicInfo: athlete.basicInfo
+      }))
+      setAthletes(transformedAthletes)
+      setLoading(false)
+    } catch (error) {
+      console.error('Error fetching athletes:', error)
+      setLoading(false)
+    }
+  }
 
   // Filter function to pass the values to AthleteGrid
   const filteredAthletes = athletes.filter((athlete) => {

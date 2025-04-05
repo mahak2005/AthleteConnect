@@ -2,82 +2,87 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { Share2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Star, Share2 } from "lucide-react"
 
-// Add `athletes` prop to the component
 interface Athlete {
-  id: number
+  _id: string
   name: string
+  gender: string
   team: string
   sport: string
   location: string
   image: string
   status: string
+  basicInfo: {
+    gender: string
+    state: string
+    sport: string
+    currentRanking: string
+  }
 }
 
 interface AthleteGridProps {
-  athletes: Athlete[] // Define the prop to accept athletes
+  athletes: Athlete[]
 }
 
-export function AthleteGrid({ athletes }: AthleteGridProps) {
+export default function AthleteGrid({ athletes }: AthleteGridProps) {
+  if (athletes.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500">No athletes found matching your criteria.</p>
+      </div>
+    )
+  }
+
   return (
-    <section className="py-12 bg-slate-50">
-      <div className="container mx-auto px-4 ">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {athletes.map((athlete) => (
-              <motion.div
-                key={athlete.id}
-                className="bg-white rounded-xl shadow-sm overflow-hidden"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="relative bg-gradient-to-b from-teal-500 to-teal-400 p-6 pb-24">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-2xl font-semibold text-white">
-                     {athlete.name}
-                      <span className="ml-2">({athlete.location})</span>
-                    </h3>
-                  </div>
-                  {/* <div className="flex items-center gap-2 mt-2">
-                    <span className="px-3 py-1 bg-purple-600 text-white rounded-full text-sm">Athlete</span>
-                  </div> */}
-                  <p className="text-white/90 mt-2">
-                    {athlete.sport} - Team: {athlete.team}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+      {athletes.map((athlete, index) => (
+        <motion.div
+          key={athlete._id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
+        >
+          <Card className="overflow-hidden">
+            <div className="relative h-48">
+              <Image
+                src={athlete.image}
+                alt={athlete.name}
+                fill
+                className="object-cover"
+              />
+              <Badge className="absolute top-2 right-2 bg-black/50 text-white">
+                {athlete.status}
+              </Badge>
+            </div>
+            <div className="p-4">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-semibold text-lg">{athlete.name}</h3>
+                  <p className="text-sm text-gray-500">
+                    {athlete.sport} • {athlete.team}
                   </p>
                 </div>
-                <div className="relative px-6 pb-6">
-                  <div className="absolute -top-20 left-6 w-32 h-32 rounded-full border-4 border-white overflow-hidden">
-                    <Image
-                      src={athlete.image || "/placeholder.svg"}
-                      alt={athlete.name}
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="pt-16 flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-600">{athlete.status}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Button size="icon" variant="ghost">
-                        <Share2 className="h-4 w-4" />
-                      </Button>
-                      <Link href={`/athletes/${athlete.id}`}>
-                        <Button className="bg-teal-500 hover:bg-teal-600">WORK WITH ME</Button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                <Button size="icon" variant="ghost">
+                  <Share2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                <Star className="h-4 w-4 text-yellow-500" />
+                <span>{athlete.location}</span>
+              </div>
+              <Link href={`/athletes/${athlete._id}`}>
+                <Button className="w-full">View Profile</Button>
+              </Link>
+            </div>
+          </Card>
         </motion.div>
-      </div>
-    </section>
+      ))}
+    </div>
   )
 }
 
