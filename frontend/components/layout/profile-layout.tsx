@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 "use client"
 
 // import { useState } from "react"
@@ -26,7 +25,7 @@ export function ProfileLayout({ children }: { children: React.ReactNode }) {
     </div>
   )
 }
-=======
+
 // "use client"
 
 // import { useState } from "react"
@@ -53,6 +52,3 @@ export function ProfileLayout({ children }: { children: React.ReactNode }) {
 //       </div>
 //     </div>
 //   )
-// }
->>>>>>> 7ae5c21 (frontend section of athlete)
-
