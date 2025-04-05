@@ -23,7 +23,7 @@
 //   )
 // }
 
-import Link from "next/link"
+// import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/layout/navbar"
 export default function Home() {
@@ -308,7 +308,7 @@ export default function Home() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
                   </svg>
-                  <span className="text-gray-600">AI-powered sponsorship matching</span>
+                  <span className="text-gray-600">Smart sponsorship matching</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <svg
@@ -425,7 +425,7 @@ export default function Home() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
                   </svg>
-                  <span className="text-gray-600">AI-powered training recommendations</span>
+                  <span className="text-gray-600">Smart training recommendations</span>
                 </li>
               </ul>
             </div>
@@ -691,7 +691,7 @@ export default function Home() {
               Trusted by Leading <span className="text-teal-600">Brands</span>
             </h2>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              These organizations are helping us make a difference in athletes' lives.
+              These organizations are helping us make a difference in Athletes lives.
             </p>
           </div>
 
@@ -725,7 +725,7 @@ export default function Home() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Make a Difference?</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto">
-            Join AthleteConnect today and be part of a community that's changing lives through sports.
+            Join AthleteConnect today and be part of a community that is changing lives through sports.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-6 text-lg">Join as an Athlete</Button>

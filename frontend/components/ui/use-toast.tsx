@@ -27,7 +27,7 @@ function genId() {
   count = (count + 1) % Number.MAX_VALUE
   return count.toString()
 }
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type ActionType = typeof actionTypes
 
 type Action =

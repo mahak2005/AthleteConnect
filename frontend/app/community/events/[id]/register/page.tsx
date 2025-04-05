@@ -146,6 +146,7 @@ export default function EventRegistrationPage() {
 
       // Redirect to confirmation page
       router.push(`/community/events/${eventId}/confirmation`)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
         title: "Registration failed",
@@ -402,7 +403,7 @@ export default function EventRegistrationPage() {
               <Separator />
 
               <div>
-                <h4 className="font-medium mb-2">What's Included:</h4>
+                <h4 className="font-medium mb-2">What is Included:</h4>
                 <ul className="space-y-1">
                   <li className="flex items-start gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />

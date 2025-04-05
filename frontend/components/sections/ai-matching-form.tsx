@@ -99,7 +99,7 @@ export function AIMatchingForm() {
                 <div className="inline-flex items-center justify-center p-2 bg-teal-100 rounded-full mb-4">
                     <Sparkles className="h-6 w-6 text-teal-600" />
                 </div>
-                <h1 className="text-3xl font-bold mb-2">AI-Powered Athlete Matching</h1>
+                <h1 className="text-3xl font-bold mb-2">Smart Athlete Matching</h1>
                 <p className="text-gray-600">
                     Tell us about your sponsorship needs and we will find the perfect athletes for your campaign
                 </p>

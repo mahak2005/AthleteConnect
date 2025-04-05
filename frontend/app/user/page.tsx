@@ -49,7 +49,7 @@ export default function UserProfile() {
   const [loading, setLoading] = useState(true);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [needs, setNeeds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -435,6 +435,7 @@ export default function UserProfile() {
                       ...formData,
                       sponsorship: {
                         ...formData.sponsorship,
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                         needs: e.target.value.split(", "),
                       },
                     })

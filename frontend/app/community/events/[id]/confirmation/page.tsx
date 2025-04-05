@@ -152,7 +152,7 @@ export default function RegistrationConfirmationPage() {
               </div>
 
               <div className="space-y-2">
-                <h3 className="font-semibold">What's Next?</h3>
+                <h3 className="font-semibold">What is Next?</h3>
                 <ul className="space-y-2">
                   <li className="flex items-start gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
@@ -166,7 +166,7 @@ export default function RegistrationConfirmationPage() {
                   )}
                   <li className="flex items-start gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                    <span>Add this event to your calendar to make sure you don't miss it.</span>
+                    <span>Add this event to your calendar to make sure you do not miss it.</span>
                   </li>
                   <li className="flex items-start gap-2 text-sm">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />

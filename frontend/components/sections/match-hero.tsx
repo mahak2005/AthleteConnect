@@ -36,6 +36,7 @@ export default function MatchHero() {
   const [location, setLocation] = useState<string>("")
   const [showAthletes, setShowAthletes] = useState(false)
   const [athletes, setAthletes] = useState<Athlete[]>([])
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 

@@ -24,7 +24,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "@/components/ui/use-toast"
 import type { Event } from "@/types/community"
-import { Nav } from "react-day-picker"
+// import { Nav } from "react-day-picker"
 import { Navbar } from "@/components/layout/navbar"
 
 // Mock data for the event details page
@@ -95,7 +95,7 @@ export default function EventDetailPage() {
   const router = useRouter()
   const eventId = params.id as string
   const event = events.find((e) => e.id === eventId) || events[0]
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isRegistering, setIsRegistering] = useState(false)
 
   const handleRegister = () => {

@@ -1,7 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Share2, Instagram, Twitter, Facebook, MapPin, Globe, Mail, Phone } from "lucide-react"
 import Link from "next/link"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"

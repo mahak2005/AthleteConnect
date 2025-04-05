@@ -95,7 +95,7 @@ export default function EventDetailPage() {
   const router = useRouter()
   const eventId = params.id as string
   const event = events.find((e) => e.id === eventId) || events[0]
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isRegistering, setIsRegistering] = useState(false)
 
   const handleRegister = () => {

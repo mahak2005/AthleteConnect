@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { MoonIcon, SunIcon, MenuIcon, XIcon } from "lucide-react"
 // import { useTheme } from "next-themes"

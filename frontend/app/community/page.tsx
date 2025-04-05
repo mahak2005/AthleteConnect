@@ -17,6 +17,7 @@ import PostCard, { type Post } from "@/components/post-card"
 import type { Event, Discussion, SuccessStory } from "@/types/community"
 import { Navbar } from "@/components/layout/navbar"
 export default function CommunityPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeTab, setActiveTab] = useState("feed")
   const [newPostContent, setNewPostContent] = useState("")
   const [posts, setPosts] = useState<Post[]>([
