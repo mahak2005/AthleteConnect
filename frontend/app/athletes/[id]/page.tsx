@@ -1,47 +1,49 @@
 "use client"
 
-import { Navbar } from "@/components/layout/navbar"
-import { Footer } from "@/components/layout/footer"
-import { AthleteProfile } from "@/components/sections/athlete-profile"
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/layout/footer'
+import { AthleteProfile } from '@/components/sections/athlete-profile'
 
 export default function AthletePage() {
-  const params = useParams()
+  const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [athleteData, setAthleteData] = useState<any>(null)
 
   useEffect(() => {
-    if (params.id) {
-      fetchAthleteProfile(params.id as string)
-    }
-  }, [params.id])
+    fetchAthleteProfile()
+  }, [id])
 
-  const fetchAthleteProfile = async (id: string) => {
+  const fetchAthleteProfile = async () => {
     try {
+      setLoading(true)
+      setError(null)
+      
       const response = await fetch(`http://localhost:5001/api/athlete/${id}`)
-      if (!response.ok) {
-        throw new Error('Failed to fetch athlete profile')
-      }
       const data = await response.json()
-      // You can store this data in a state or context to pass to AthleteProfile
-      setLoading(false)
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch athlete profile')
+      }
+
+      setAthleteData(data)
     } catch (error) {
       console.error('Error fetching athlete profile:', error)
-      setError('Failed to load athlete profile')
+      setError(error instanceof Error ? error.message : 'Failed to fetch athlete profile')
+    } finally {
       setLoading(false)
     }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="pt-16">
-          <div className="container mx-auto px-4 py-8">
-            <div className="text-center">Loading...</div>
-          </div>
-        </main>
+        <div className="flex-1 flex items-center justify-center pt-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-500"></div>
+        </div>
         <Footer />
       </div>
     )
@@ -49,23 +51,30 @@ export default function AthletePage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen flex flex-col">
         <Navbar />
-        <main className="pt-16">
-          <div className="container mx-auto px-4 py-8">
-            <div className="text-center text-red-500">{error}</div>
+        <div className="flex-1 flex items-center justify-center pt-20">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
+            <p className="text-gray-600">{error}</p>
+            <button 
+              onClick={fetchAthleteProfile}
+              className="mt-4 px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600"
+            >
+              Try Again
+            </button>
           </div>
-        </main>
+        </div>
         <Footer />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="pt-16">
-        <AthleteProfile id={params.id as string} />
+      <main className="flex-1 pt-20">
+        <AthleteProfile id={id as string} />
       </main>
       <Footer />
     </div>
