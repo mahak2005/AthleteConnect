@@ -35,7 +35,7 @@ const connectWithRetry = () => {
     .catch(err => {
       console.error('MongoDB connection error:', err);
       console.log('Retrying connection in 5 seconds...');
-      setTimeout(connectWithRetry, 5000);
+      setTimeout(connectWithRetry, 5001);
     });
 };
 
@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Test the API at: http://localhost:${PORT}/api/test`);

@@ -10,7 +10,7 @@
 // export default function Home() {
 //   return (
 //     <div className="min-h-screen">
-      
+
 //       <main>
 //         <Navbar />
 //         <Hero />
@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Navbar */}
-      <Navbar/>
+      <Navbar />
       {/* <header className="fixed w-full bg-white z-50 border-b">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
@@ -129,24 +129,17 @@ export default function Home() {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-gray-100 rounded-lg aspect-square flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="80"
-                  height="80"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-gray-300"
-                >
-                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                  <circle cx="9" cy="9" r="2"></circle>
-                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                </svg>
+              <div
+                className="bg-gray-100 rounded-lg aspect-square flex items-center justify-center overflow-hidden"
+                style={{ width: '500px' }}
+              >
+                <img
+                  src="/main.jpg"
+                  alt="Main"
+                  className="object-cover w-full h-full filter brightness-90 saturate-50"
+                />
               </div>
+
               <div className="absolute -bottom-6 -right-6 bg-white rounded-lg shadow-lg p-4 max-w-xs">
                 <div className="flex items-center gap-2 mb-2">
                   <svg

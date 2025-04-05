@@ -62,7 +62,7 @@ export default function UserProfile() {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/athlete/profile', {
+      const response = await fetch('http://localhost:5001/api/athlete/profile', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -118,7 +118,7 @@ export default function UserProfile() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/athlete/profile', {
+      const response = await fetch('http://localhost:5001/api/athlete/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
