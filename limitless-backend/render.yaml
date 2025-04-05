@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: limitless-backend
+    env: node
+    repo: https://github.com/mahak2005/AthleteConnect
+    rootDir: limitless-backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5001
+      - key: CORS_ORIGIN
+        value: https://your-frontend-domain.com
+    healthCheckPath: /api/health
+    autoDeploy: true 
