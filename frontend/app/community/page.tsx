@@ -15,7 +15,7 @@ import { Users, Calendar, MapPin, Search, Filter, ArrowRight, Award, ThumbsUp, C
 import { toast } from "@/components/ui/use-toast"
 import PostCard, { type Post } from "@/components/post-card"
 import type { Event, Discussion, SuccessStory } from "@/types/community"
-
+import { Navbar } from "@/components/layout/navbar"
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("feed")
   const [newPostContent, setNewPostContent] = useState("")
@@ -285,6 +285,8 @@ export default function CommunityPage() {
   }
 
   return (
+    <section className="pt-24 pb-12 bg-gradient-to-b from-teal-500 to-teal-400">
+    <Navbar/>
     <div className="container py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -686,6 +688,7 @@ export default function CommunityPage() {
         </TabsContent>
       </Tabs>
     </div>
+    </section>
   )
 }
 

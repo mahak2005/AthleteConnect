@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Navbar } from "@/components/layout/navbar"
 import {
   Calendar,
   Clock,
@@ -24,8 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { toast } from "@/components/ui/use-toast"
 import type { Event } from "@/types/community"
-import { Nav } from "react-day-picker"
-import { Navbar } from "@/components/layout/navbar"
+
 
 // Mock data for the event details page
 const events: Event[] = [
@@ -121,6 +121,7 @@ export default function EventDetailPage() {
   return (
     <section className="pt-24 pb-12 bg-gradient-to-b from-teal-500 to-teal-400">
     <Navbar/>
+    
     <div className="container py-12">
       <Button variant="ghost" asChild className="mb-6">
         <Link href="/community/events">
