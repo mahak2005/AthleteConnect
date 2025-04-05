@@ -1,27 +1,58 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { AthleteProfile } from '@/components/sections/athlete-profile'
 
+interface AthleteData {
+  _id: string;
+  name: string;
+  image: string;
+  country: string;
+  basicInfo: {
+    fullName: string;
+    age: number;
+    gender: string;
+    nationality: string;
+    state: string;
+    sport: string;
+    category: string;
+    currentRanking: string;
+  };
+  about: string;
+  achievements: {
+    medals: string[];
+    records: string[];
+    awards: string[];
+  };
+  sponsorship: {
+    needs: string[];
+    impact: string;
+  };
+  social: {
+    instagram: string;
+    twitter: string;
+    facebook: string;
+  };
+  contact: {
+    email: string;
+    phone: string;
+  };
+}
+
 export default function AthletePage() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [athleteData, setAthleteData] = useState<any>(null)
+  const [athleteData, setAthleteData] = useState<AthleteData | null>(null)
 
-  useEffect(() => {
-    fetchAthleteProfile()
-  }, [id])
-
-  const fetchAthleteProfile = async () => {
+  const fetchAthleteProfile = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
-      
+
       const response = await fetch(`http://localhost:5001/api/athlete/${id}`)
       const data = await response.json()
 
@@ -36,7 +67,11 @@ export default function AthletePage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    fetchAthleteProfile()
+  }, [fetchAthleteProfile])
 
   if (loading) {
     return (
@@ -58,7 +93,7 @@ export default function AthletePage() {
           <div className="text-center">
             <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
             <p className="text-gray-600">{error}</p>
-            <button 
+            <button
               onClick={fetchAthleteProfile}
               className="mt-4 px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600"
             >

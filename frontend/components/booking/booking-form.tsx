@@ -13,6 +13,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 
+interface BookingFormData {
+  name: string;
+  email: string;
+  phone: string;
+  date: Date | undefined;
+  time: string;
+  goals: string;
+  experience: string;
+  package: string;
+  coach: string;
+}
+
 interface BookingFormProps {
   coach: Coach
   packageDetails: {
@@ -22,8 +34,10 @@ interface BookingFormProps {
     duration?: string
     type?: string
   }
-  onSubmit: (formData: any) => void
+  onSubmit: (formData: BookingFormData) => void
 }
+
+type DayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | -1;
 
 export function BookingForm({ coach, packageDetails, onSubmit }: BookingFormProps) {
   const [name, setName] = useState("")
@@ -37,8 +51,8 @@ export function BookingForm({ coach, packageDetails, onSubmit }: BookingFormProp
 
   // Generate available time slots based on coach availability
   const getAvailableTimeSlots = () => {
-    const today = new Date().getDay()
-    const availableDays = coach.availability.map((day) => {
+    const today = new Date().getDay() as DayNumber
+    const availableDays = coach.availability.map((day): DayNumber => {
       switch (day) {
         case "Mon":
           return 1
@@ -60,7 +74,7 @@ export function BookingForm({ coach, packageDetails, onSubmit }: BookingFormProp
     })
 
     // If selected date is available, show time slots
-    if (date && availableDays.includes(date.getDay())) {
+    if (date && availableDays.includes(date.getDay() as DayNumber)) {
       return ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM"]
     }
 
@@ -124,8 +138,8 @@ export function BookingForm({ coach, packageDetails, onSubmit }: BookingFormProp
                 onSelect={setDate}
                 initialFocus
                 disabled={(date) => {
-                  const day = date.getDay()
-                  const availableDays = coach.availability.map((day) => {
+                  const day = date.getDay() as DayNumber
+                  const availableDays = coach.availability.map((day): DayNumber => {
                     switch (day) {
                       case "Mon":
                         return 1

@@ -38,7 +38,7 @@ export function BookingConfirmation({ bookingDetails, onClose }: BookingConfirma
       <div className="text-center mb-6">
         <h3 className="text-lg font-medium mb-2">Your session has been booked!</h3>
         <p className="text-gray-600">
-          We've sent a confirmation email to <span className="font-medium">{bookingDetails.email}</span> with all the
+          We have sent a confirmation email to <span className="font-medium">{bookingDetails.email}</span> with all the
           details.
         </p>
       </div>

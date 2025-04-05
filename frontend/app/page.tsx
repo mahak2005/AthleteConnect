@@ -26,6 +26,8 @@
 // import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/layout/navbar"
+import Image from "next/image"
+
 export default function Home() {
   return (
     <div className="min-h-screen">
@@ -133,9 +135,11 @@ export default function Home() {
                 className="bg-gray-100 rounded-lg aspect-square flex items-center justify-center overflow-hidden"
                 style={{ width: '500px' }}
               >
-                <img
+                <Image
                   src="/main.jpg"
                   alt="Main"
+                  width={500}
+                  height={500}
                   className="object-cover w-full h-full filter brightness-90 saturate-50"
                 />
               </div>
