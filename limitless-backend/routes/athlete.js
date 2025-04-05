@@ -61,6 +61,19 @@ router.get('/all', async (req, res) => {
   }
 });
 
+// Get athlete by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const athlete = await Athlete.findById(req.params.id).select('-password');
+    if (!athlete) {
+      return res.status(404).json({ message: 'Athlete not found' });
+    }
+    res.json(athlete);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
 // Update athlete profile picture
 router.put('/profile/image', auth, async (req, res) => {
   try {
