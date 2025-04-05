@@ -2,20 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Athlete = require('../models/Athlete');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
-const path = require('path');
-
-// Configure multer for file upload
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname))
-  }
-});
-
-const upload = multer({ storage: storage });
 
 // Middleware to verify JWT token
 const auth = async (req, res, next) => {
@@ -76,22 +62,50 @@ router.get('/all', async (req, res) => {
 });
 
 // Update athlete profile picture
-router.put('/profile/image', auth, upload.single('image'), async (req, res) => {
+router.put('/profile/image', auth, async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ message: 'No image file provided' });
+    const { image } = req.body;
+    
+    if (!image) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'No image data provided' 
+      });
     }
 
-    const imagePath = '/' + req.file.path.replace(/\\/g, '/');
+    // Validate that it's a base64 string
+    if (!image.startsWith('data:image/')) {
+      return res.status(400).json({ 
+        success: false,
+        message: 'Invalid image format. Please provide a valid image file.' 
+      });
+    }
+
     const athlete = await Athlete.findByIdAndUpdate(
       req.athlete._id,
-      { $set: { image: imagePath } },
+      { $set: { image } },
       { new: true }
     ).select('-password');
 
-    res.json(athlete);
+    if (!athlete) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'Athlete not found' 
+      });
+    }
+
+    res.json({ 
+      success: true,
+      message: 'Image uploaded successfully',
+      image: athlete.image 
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error uploading image:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error while uploading image',
+      error: error.message 
+    });
   }
 });
 

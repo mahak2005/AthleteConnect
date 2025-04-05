@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+import { Share2, Camera } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navbar } from "@/components/layout/navbar";
 
@@ -47,6 +47,8 @@ export default function UserProfile() {
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState(defaultAthleteData);
   const [loading, setLoading] = useState(true);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [needs, setNeeds] = useState<string[]>([]);
 
@@ -139,6 +141,100 @@ export default function UserProfile() {
     }
   };
 
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        // Create preview URL
+        const previewUrl = URL.createObjectURL(file);
+        setImagePreview(previewUrl);
+
+        // Create a canvas to compress the image
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          throw new Error('Could not get canvas context');
+        }
+
+        // Create image element
+        const img = document.createElement('img');
+        
+        img.onload = async () => {
+          try {
+            // Set canvas dimensions (max 800px width/height while maintaining aspect ratio)
+            const maxSize = 800;
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+              if (width > maxSize) {
+                height = Math.round((height * maxSize) / width);
+                width = maxSize;
+              }
+            } else {
+              if (height > maxSize) {
+                width = Math.round((width * maxSize) / height);
+                height = maxSize;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            // Draw and compress image
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+              throw new Error('No authentication token found');
+            }
+
+            const response = await fetch('http://localhost:5001/api/athlete/profile/image', {
+              method: 'PUT',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ image: compressedBase64 })
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+              throw new Error(data.message || 'Failed to upload image');
+            }
+
+            // Update the athlete state with the new image
+            setAthlete(prev => ({ ...prev, image: data.image }));
+            setFormData(prev => ({ ...prev, image: data.image }));
+            
+            // Clear the preview URL
+            URL.revokeObjectURL(previewUrl);
+            setImagePreview(null);
+
+            alert('Profile picture updated successfully!');
+          } catch (error) {
+            console.error('Error uploading image:', error);
+            alert(error instanceof Error ? error.message : 'Failed to upload image');
+            // Clear the preview URL on error
+            URL.revokeObjectURL(previewUrl);
+            setImagePreview(null);
+          }
+        };
+
+        img.onerror = () => {
+          throw new Error('Failed to load image');
+        };
+
+        img.src = previewUrl;
+      } catch (error) {
+        console.error('Error in handleImageChange:', error);
+        alert('Failed to process image. Please try again.');
+      }
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -150,13 +246,32 @@ export default function UserProfile() {
         {/* Header */}
         <div className="max-w-4xl mx-auto bg-gradient-to-b from-teal-500 to-teal-400 rounded-lg p-6 shadow-lg">
           <div className="flex items-center gap-4">
-            <Image
-              src={athlete.image || "/placeholder.svg"}
-              alt={athlete.name}
-              width={64}
-              height={64}
-              className="rounded-full border-2 border-white"
-            />
+            <div className="relative">
+              <Image
+                src={imagePreview || athlete.image || "/placeholder.svg"}
+                alt={athlete.name}
+                width={64}
+                height={64}
+                className="rounded-full border-2 border-white"
+              />
+              {editing && (
+                <>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="absolute bottom-0 right-0 bg-teal-600 p-1 rounded-full border-2 border-white"
+                  >
+                    <Camera className="h-4 w-4 text-white" />
+                  </button>
+                </>
+              )}
+            </div>
             <div>
               <h1 className="text-2xl font-bold">
                 {editing ? (
