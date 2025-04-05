@@ -75,7 +75,7 @@ export function EventTeams() {
               Join an existing team or create your own to support athletes
             </p>
           </div>
-          <Button className="bg-blue-600 text-white hover:bg-blue-700">Create Team</Button>
+          <Button className="bg-teal-600 text-white hover:bg-teal-700">Create Team</Button>
         </div>
 
         <div className="mb-8">
@@ -98,7 +98,7 @@ export function EventTeams() {
                   <h3 className="text-xl font-semibold mb-1">{team.name}</h3>
                   <Badge variant="secondary">{team.track}</Badge>
                 </div>
-                <Button className="bg-blue-600 text-white hover:bg-blue-700">Request to Join</Button>
+                <Button className="bg-teal-600 text-white hover:bg-teal-700">Request to Join</Button>
               </div>
 
               <p className="text-slate-600 mb-6">{team.description}</p>
@@ -130,7 +130,7 @@ export function EventTeams() {
                   <div className="space-y-2">
                     {team.openRoles.map((role) => (
                       <div key={role} className="flex items-center gap-2">
-                        <div className="h-2 w-2 bg-blue-500 rounded-full" />
+                        <div className="h-2 w-2 bg-teal-500 rounded-full" />
                         <span>{role}</span>
                       </div>
                     ))}

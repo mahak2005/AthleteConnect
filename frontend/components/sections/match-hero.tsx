@@ -133,7 +133,7 @@ export default function MatchHero() {
   })
 
   return (
-    <section className="pt-24 pb-12 bg-gradient-to-b from-blue-500 to-lightblue-400 px-4">
+    <section className="pt-24 pb-12 bg-gradient-to-b from-teal-500 to-teal-400 px-4">
       <div className="container mx-auto px-4">
         <motion.h1
           className="text-4xl md:text-5xl font-bold text-white text-center mb-8"
@@ -205,7 +205,7 @@ export default function MatchHero() {
           <div className="flex flex-col md:flex-row justify-center gap-4">
             <Button
               size="lg"
-              className="bg-blue-700 hover:bg-blue-500"
+              className="bg-teal-700 hover:bg-teal-500"
               onClick={() => setShowAthletes(!showAthletes)}
             >
               {showAthletes ? "HIDE ATHLETES" : "VIEW ALL ATHLETES"}
@@ -213,7 +213,7 @@ export default function MatchHero() {
 
             <Button
               size="lg"
-              className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
+              className="bg-teal-600 hover:bg-teal-700 flex items-center gap-2"
               onClick={() => router.push("/match-with-athletes/ai-matching")}
             >
               <Sparkles className="h-5 w-5" />

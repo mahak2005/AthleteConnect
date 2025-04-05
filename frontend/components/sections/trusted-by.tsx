@@ -15,7 +15,7 @@ const brands = [
 
 export function TrustedBy() {
   return (
-    <section className="py-12 bg-gradient-to-r from-blue-50 via-white to-blue-50">
+    <section className="py-12 bg-gradient-to-r from-teal-50 via-white to-teal-50">
       <div className="container mx-auto px-4">
         <h2 className="text-center text-xl font-semibold text-slate-600 mb-8">TRUSTED BY</h2>
         <div className="relative overflow-hidden">

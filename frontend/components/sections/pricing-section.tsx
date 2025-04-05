@@ -66,7 +66,7 @@ export function PricingSection() {
   const [isYearly, setIsYearly] = useState(false);
 
   return (
-    <section className="py-8 bg-gradient-to-b from-blue-500 to-lightblue-400 to-lightblue-400 px-4">
+    <section className="py-8 bg-gradient-to-b from-teal-500 to-teal-400 px-4">
       <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -105,9 +105,8 @@ export function PricingSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative rounded-lg border p-6 bg-white ${
-                plan.popular ? "border-blue-200 shadow-lg" : "border-slate-200"
-              }`}
+              className={`relative rounded-lg border p-6 bg-white ${plan.popular ? "border-blue-200 shadow-lg" : "border-slate-200"
+                }`}
             >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-medium px-3 py-1 rounded-full">

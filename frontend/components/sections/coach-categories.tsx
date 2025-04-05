@@ -41,8 +41,8 @@ const categories = [
     id: 4,
     name: "Physiotherapy",
     icon: Activity,
-    color: "bg-blue-100",
-    textColor: "text-blue-600",
+    color: "bg-teal-100",
+    textColor: "text-teal-600",
   },
   {
     id: 5,

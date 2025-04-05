@@ -80,7 +80,7 @@ const athleteData = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function AthleteProfile({ id }: { id: string }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-lightblue-300 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-teal-500 to-teal-300 px-4">
       {/* Header */}
       <div className="">
         <div className="container mx-auto px-4">
@@ -102,7 +102,7 @@ export function AthleteProfile({ id }: { id: string }) {
               <Button size="icon" variant="ghost" className="text-white">
                 <Share2 className="h-5 w-5" />
               </Button>
-              <Button className="bg-blue-500 hover:bg-blue-600">WORK WITH ME</Button>
+              <Button className="bg-teal-500 hover:bg-teal-600">WORK WITH ME</Button>
             </div>
           </div>
         </div>
@@ -270,7 +270,7 @@ export function AthleteProfile({ id }: { id: string }) {
                   <div key={index} className="border rounded-lg p-4">
                     <h3 className="font-semibold mb-2">{deal.title}</h3>
                     <p className="text-sm text-gray-600 mb-4">{deal.description}</p>
-                    <Button className="w-full bg-blue-500 hover:bg-blue-600">LOG IN TO SEE PRICING</Button>
+                    <Button className="w-full bg-teal-500 hover:bg-teal-600">LOG IN TO SEE PRICING</Button>
                   </div>
                 ))}
               </div>

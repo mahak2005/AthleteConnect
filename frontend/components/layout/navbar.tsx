@@ -45,7 +45,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center space-x-2">
+          {/* <Link href="/" className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
@@ -60,7 +60,16 @@ export function Navbar() {
               />
             </motion.div>
             <span className="text-xl font-semibold">LimitlessAthlete</span>
-          </Link>
+          </Link> */}
+          <div className="flex items-center gap-2">
+              <div className="h-10 w-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
+                <span>AC</span>
+              </div>
+              <div className="text-xl font-medium">
+                <span className="text-teal-600">Athlete</span>
+                <span className="text-gray-900">Connect</span>
+              </div>
+            </div>
 
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (

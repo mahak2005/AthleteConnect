@@ -111,7 +111,7 @@ export function AIMatchingForm() {
                     {steps.map((step, index) => (
                         <div key={step.id} className="flex flex-col items-center">
                             <div
-                                className={`w-10 h-10 rounded-full flex items-center justify-center ${currentStep >= index ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"
+                                className={`w-10 h-10 rounded-full flex items-center justify-center ${currentStep >= index ? "bg-teal-600 text-white" : "bg-gray-200 text-gray-500"
                                     }`}
                             >
                                 {currentStep > index ? <CheckCircle2 className="h-6 w-6" /> : <span>{index + 1}</span>}
@@ -123,7 +123,7 @@ export function AIMatchingForm() {
                 <div className="relative mt-2">
                     <div className="absolute top-0 left-0 h-1 bg-gray-200 w-full"></div>
                     <div
-                        className="absolute top-0 left-0 h-1 bg-blue-600 transition-all duration-300"
+                        className="absolute top-0 left-0 h-1 bg-teal-600 transition-all duration-300"
                         style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
                     ></div>
                 </div>
@@ -492,7 +492,7 @@ export function AIMatchingForm() {
                                 Next <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
                         ) : (
-                            <Button type="submit" disabled={isSubmitting} className="bg-blue-600 hover:bg-blue-700">
+                            <Button type="submit" disabled={isSubmitting} className="bg-teal-600 hover:bg-teal-700">
                                 {isSubmitting ? "Finding Matches..." : "Find Matches"}
                                 <Sparkles className="ml-2 h-4 w-4" />
                             </Button>
