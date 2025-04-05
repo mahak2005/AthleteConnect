@@ -72,8 +72,8 @@ export function AIMatchingResults() {
                 transition={{ duration: 0.5 }}
                 className="mb-8 text-center"
             >
-                <div className="inline-flex items-center justify-center p-2 bg-blue-100 rounded-full mb-4">
-                    <Sparkles className="h-6 w-6 text-blue-600" />
+                <div className="inline-flex items-center justify-center p-2 bg-teal-100 rounded-full mb-4">
+                    <Sparkles className="h-6 w-6 text-teal-600" />
                 </div>
                 <h1 className="text-3xl font-bold mb-2">Your AI-Matched Athletes</h1>
                 <p className="text-gray-600 mb-4">
@@ -104,7 +104,7 @@ export function AIMatchingResults() {
                                 <div className="relative w-full md:w-1/4 h-48 md:h-auto">
                                     <Image src={athlete.image || "/placeholder.svg"} alt={athlete.name} fill className="object-cover" />
                                     <div className="absolute top-2 right-2">
-                                        <Badge className="bg-blue-600">
+                                        <Badge className="bg-teal-600">
                                             <Sparkles className="h-3 w-3 mr-1" />
                                             {athlete.match}% Match
                                         </Badge>

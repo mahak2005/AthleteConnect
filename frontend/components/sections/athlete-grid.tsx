@@ -34,7 +34,7 @@ export function AthleteGrid({ athletes }: AthleteGridProps) {
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="relative bg-gradient-to-b from-blue-500 to-lightblue-400 p-6 pb-24">
+                <div className="relative bg-gradient-to-b from-teal-500 to-teal-400 p-6 pb-24">
                   <div className="flex items-center gap-2">
                     <h3 className="text-2xl font-semibold text-white">
                      {athlete.name}
@@ -67,7 +67,7 @@ export function AthleteGrid({ athletes }: AthleteGridProps) {
                         <Share2 className="h-4 w-4" />
                       </Button>
                       <Link href={`/athletes/${athlete.id}`}>
-                        <Button className="bg-blue-500 hover:bg-blue-600">WORK WITH ME</Button>
+                        <Button className="bg-teal-500 hover:bg-teal-600">WORK WITH ME</Button>
                       </Link>
                     </div>
                   </div>

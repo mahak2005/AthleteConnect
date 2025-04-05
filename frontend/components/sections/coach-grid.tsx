@@ -95,11 +95,11 @@ export function CoachGrid() {
           </div>
           <div className="p-6">
             <h3 className="text-xl font-semibold mb-1">{coach.name}</h3>
-            <p className="text-sm text-blue-600 mb-2">{coach.title}</p>
+            <p className="text-sm text-teal-600 mb-2">{coach.title}</p>
             <p className="text-sm text-gray-600 mb-4">{coach.organization}</p>
             <p className="text-sm text-gray-700 mb-4">{coach.description}</p>
             <Link href={`/coaches/${coach.id}`}>
-              <Button className="w-full bg-blue-700 hover:bg-blue-500">View Profile</Button>
+              <Button className="w-full bg-teal-700 hover:bg-teal-500">View Profile</Button>
             </Link>
           </div>
         </motion.div>

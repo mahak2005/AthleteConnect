@@ -96,8 +96,8 @@ export function AIMatchingForm() {
                 transition={{ duration: 0.5 }}
                 className="mb-8 text-center"
             >
-                <div className="inline-flex items-center justify-center p-2 bg-blue-100 rounded-full mb-4">
-                    <Sparkles className="h-6 w-6 text-blue-600" />
+                <div className="inline-flex items-center justify-center p-2 bg-teal-100 rounded-full mb-4">
+                    <Sparkles className="h-6 w-6 text-teal-600" />
                 </div>
                 <h1 className="text-3xl font-bold mb-2">AI-Powered Athlete Matching</h1>
                 <p className="text-gray-600">

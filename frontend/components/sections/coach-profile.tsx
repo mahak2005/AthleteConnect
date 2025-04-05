@@ -59,7 +59,7 @@ const coachData = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function CoachProfile({ id }: { id: string }) {
     return (
-        <div className=" mx-auto py-8 bg-gradient-to-b from-blue-500 to-lightblue-400 px-8">
+        <div className=" mx-auto py-8 bg-gradient-to-b from-teal-500 to-teal-400 px-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column - Profile Info */}
                 <div className="lg:col-span-1">
@@ -75,7 +75,7 @@ export function CoachProfile({ id }: { id: string }) {
                             </div>
                             <div className="p-6">
                                 <div className="flex gap-2 mb-4">
-                                    <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                                    <Badge variant="secondary" className="bg-teal-100 text-teal-700">
                                         <Star className="w-4 h-4 mr-1" />
                                         {coachData.rating}
                                     </Badge>
@@ -85,7 +85,7 @@ export function CoachProfile({ id }: { id: string }) {
                                     </Badge>
                                 </div>
                                 <h1 className="text-2xl font-bold mb-2">{coachData.name}</h1>
-                                <p className="text-blue-600 mb-1">{coachData.title}</p>
+                                <p className="text-teal-600 mb-1">{coachData.title}</p>
                                 <p className="text-gray-600 mb-4">{coachData.organization}</p>
                                 <div className="space-y-4">
                                     <div>
@@ -126,7 +126,7 @@ export function CoachProfile({ id }: { id: string }) {
                                         <p className="text-lg font-medium">{coachData.commitment}</p>
                                     </div>
                                     <div className="w-24 h-24 flex-shrink-0">
-                                        <Trophy className="w-full h-full text-blue-500" />
+                                        <Trophy className="w-full h-full text-teal-500" />
                                     </div>
                                 </div>
                             </CardContent>
@@ -155,7 +155,7 @@ export function CoachProfile({ id }: { id: string }) {
                                                     {pkg.type}
                                                 </CardDescription>
                                             </div>
-                                            <Button className="bg-blue-700 hover:bg-blue-500">Rs. {pkg.price} - Book Now</Button>
+                                            <Button className="bg-teal-700 hover:bg-teal-500">Rs. {pkg.price} - Book Now</Button>
                                         </div>
                                     </CardHeader>
                                     <CardContent>
@@ -185,7 +185,7 @@ export function CoachProfile({ id }: { id: string }) {
                                                 <CardTitle>{service.title}</CardTitle>
                                                 <CardDescription className="mt-1">{service.description}</CardDescription>
                                             </div>
-                                            <Button className="bg-blue-700 hover:bg-blue-500">Rs.{service.price} - Book Now</Button>
+                                            <Button className="bg-teal-700 hover:bg-teal-500">Rs.{service.price} - Book Now</Button>
                                         </div>
                                     </CardHeader>
                                 </Card>

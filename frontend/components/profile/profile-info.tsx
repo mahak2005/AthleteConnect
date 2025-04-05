@@ -116,7 +116,7 @@ export function ProfileInfo() {
       ) : (
         <>
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between bg-blue-600 text-white">
+            <CardHeader className="flex flex-row items-center justify-between bg-teal-600 text-white">
               <CardTitle className="text-lg font-semibold">Primary Info</CardTitle>
               {isEditing ? (
                 <div className="space-x-2">
@@ -124,7 +124,7 @@ export function ProfileInfo() {
                     size="sm"
                     variant="outline"
                     onClick={() => setIsEditing(false)}
-                    className="bg-white text-blue-600 hover:bg-blue-100"
+                    className="bg-white text-teal-600 hover:bg-teal-100"
                   >
                     <X className="w-4 h-4 mr-2" /> Cancel
                   </Button>
@@ -132,7 +132,7 @@ export function ProfileInfo() {
                     size="sm"
                     onClick={handleSave}
                     disabled={loading}
-                    className="bg-white text-blue-600 hover:bg-blue-100"
+                    className="bg-white text-teal-600 hover:bg-teal-100"
                   >
                     <Save className="w-4 h-4 mr-2" />
                     {loading ? "Saving..." : "Save"}
@@ -143,7 +143,7 @@ export function ProfileInfo() {
                   size="sm"
                   variant="outline"
                   onClick={() => setIsEditing(true)}
-                  className="bg-white text-blue-600 hover:bg-blue-100"
+                  className="bg-white text-teal-600 hover:bg-teal-100"
                 >
                   <Edit className="w-4 h-4 mr-2" /> Edit
                 </Button>
@@ -189,7 +189,7 @@ export function ProfileInfo() {
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between bg-blue-600 text-white">
+            <CardHeader className="flex flex-row items-center justify-between bg-teal-600 text-white">
               <CardTitle className="text-lg font-semibold">More Info</CardTitle>
               {isEditing ? (
                 <div className="space-x-2">
@@ -197,7 +197,7 @@ export function ProfileInfo() {
                     size="sm"
                     variant="outline"
                     onClick={() => setIsEditing(false)}
-                    className="bg-white text-blue-600 hover:bg-blue-100"
+                    className="bg-white text-teal-600 hover:bg-teal-100"
                   >
                     <X className="w-4 h-4 mr-2" /> Cancel
                   </Button>
@@ -205,7 +205,7 @@ export function ProfileInfo() {
                     size="sm"
                     onClick={handleSave}
                     disabled={loading}
-                    className="bg-white text-blue-600 hover:bg-blue-100"
+                    className="bg-white text-teal-600 hover:bg-teal-100"
                   >
                     <Save className="w-4 h-4 mr-2" />
                     {loading ? "Saving..." : "Save"}
@@ -216,7 +216,7 @@ export function ProfileInfo() {
                   size="sm"
                   variant="outline"
                   onClick={() => setIsEditing(true)}
-                  className="bg-white text-blue-600 hover:bg-blue-100"
+                  className="bg-white text-teal-600 hover:bg-teal-100"
                 >
                   <Edit className="w-4 h-4 mr-2" /> Edit
                 </Button>

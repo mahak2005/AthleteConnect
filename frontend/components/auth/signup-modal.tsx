@@ -132,14 +132,14 @@ export function SignupModal() {
                 <button
                   type="button"
                   onClick={() => setUserType("brand")}
-                  className={`px-4 py-2 rounded-full ${userType === "brand" ? "bg-blue-50 text-blue-600" : "text-gray-500"}`}
+                  className={`px-4 py-2 rounded-full ${userType === "brand" ? "bg-teal-50 text-teal-600" : "text-gray-500"}`}
                 >
                   I am a Brand
                 </button>
                 <button
                   type="button"
                   onClick={() => setUserType("athlete")}
-                  className={`px-4 py-2 rounded-full ${userType === "athlete" ? "bg-blue-50 text-blue-600" : "text-gray-500"}`}
+                  className={`px-4 py-2 rounded-full ${userType === "athlete" ? "bg-teal-50 text-teal-600" : "text-gray-500"}`}
                 >
                   I am an Athlete or...
                 </button>
@@ -155,7 +155,7 @@ export function SignupModal() {
                       onClick={() => setSelectedRole(type.id)}
                       className="flex flex-col items-center gap-2"
                     >
-                      <div className={`relative w-12 h-12 rounded-full border-2 ${selectedRole === type.id ? "border-blue-600" : "border-transparent"}`}>
+                      <div className={`relative w-12 h-12 rounded-full border-2 ${selectedRole === type.id ? "border-teal-600" : "border-transparent"}`}>
                         <Image src={type.icon} alt={type.label} fill className="object-cover" />
                       </div>
                       <span className="text-xs font-medium text-gray-600">{type.label}</span>
@@ -172,7 +172,7 @@ export function SignupModal() {
 
             {/* Redirect to Login */}
             <div className="text-center text-sm">
-              Already a member? <button onClick={() => setOpen(false)} className="text-blue-600 hover:underline">Login</button>
+              Already a member? <button onClick={() => setOpen(false)} className="text-teal-600 hover:underline">Login</button>
             </div>
           </form>
         </motion.div>

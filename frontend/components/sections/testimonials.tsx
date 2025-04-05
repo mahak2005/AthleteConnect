@@ -29,7 +29,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-12 md:py-20 bg-gradient-to-b from-white to-blue-50">
+    <section className="py-12 md:py-20 bg-gradient-to-b from-white to-teal-50">
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-3xl font-bold text-center mb-12"
@@ -66,7 +66,7 @@ export function Testimonials() {
                   height={50}
                   className="h-8 w-auto mb-4"
                 />
-                <div className="text-2xl font-bold text-blue-600 mb-2">{testimonial.stat}</div>
+                <div className="text-2xl font-bold text-teal-600 mb-2">{testimonial.stat}</div>
                 <p className="text-slate-600">{testimonial.description}</p>
               </div>
             </motion.div>

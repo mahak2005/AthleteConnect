@@ -46,7 +46,7 @@ export function EventCard({ event }: EventProps) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Link2 className="h-5 w-5 text-blue-600" />
+            <Link2 className="h-5 w-5 text-teal-600" />
           </a>
           {event.links.discord && (
             <a
@@ -55,7 +55,7 @@ export function EventCard({ event }: EventProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Discord className="h-5 w-5 text-blue-600" />
+              <Discord className="h-5 w-5 text-teal-600" />
             </a>
           )}
           {event.links.twitter && (
@@ -65,7 +65,7 @@ export function EventCard({ event }: EventProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Twitter className="h-5 w-5 text-blue-600" />
+              <Twitter className="h-5 w-5 text-teal-600" />
             </a>
           )}
           {event.links.instagram && (
@@ -75,7 +75,7 @@ export function EventCard({ event }: EventProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Instagram className="h-5 w-5 text-blue-600" />
+              <Instagram className="h-5 w-5 text-teal-600" />
             </a>
           )}
         </div>
@@ -103,7 +103,7 @@ export function EventCard({ event }: EventProps) {
               />
             ))} */}
           </div>
-          <span className="text-sm text-blue-600 font-medium">{event.participants.count} participating</span>
+          <span className="text-sm text-teal-600 font-medium">{event.participants.count} participating</span>
         </div>
 
         <div className="flex items-center justify-between">
@@ -120,7 +120,7 @@ export function EventCard({ event }: EventProps) {
               <span className="px-3 py-1 text-sm bg-slate-100 text-slate-700 rounded-full">{event.status.date}</span>
             )}
           </div>
-          <Button className="bg-blue-700 hover:bg-blue-500"
+          <Button className="bg-teal-700 hover:bg-teal-500"
           onClick={() => router.push(`/events/${event.id}`)}>Apply now</Button>
         </div>
       </div>

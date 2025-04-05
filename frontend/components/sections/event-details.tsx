@@ -108,15 +108,15 @@ export function EventDetails({ eventId }: EventDetailsProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-blue-400" />
+                <Calendar className="h-5 w-5 text-teal-400" />
                 <span>{event.date}</span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-blue-400" />
+                <MapPin className="h-5 w-5 text-teal-400" />
                 <span>{event.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-blue-400" />
+                <Users className="h-5 w-5 text-teal-400" />
                 <span>Individual and team participation allowed</span>
               </div>
             </div>
@@ -127,10 +127,10 @@ export function EventDetails({ eventId }: EventDetailsProps) {
                 <p className="text-2xl font-bold">{event.applicationDeadline}</p>
               </div>
               <div className="flex gap-2">
-                <Button className="flex-1 bg-blue-600 text-white hover:bg-blue-700" size="lg">
+                <Button className="flex-1 bg-teal-600 text-white hover:bg-teal-700" size="lg">
                   Apply now
                 </Button>
-                <Button variant="outline" size="lg" className="bg-white-600 hover:bg-blue-700 flex-1">
+                <Button variant="outline" size="lg" className="bg-white-600 hover:bg-teal-700 flex-1">
                   <Link2 className="h-4 w-4 mr-2" />
                   Website
                 </Button>

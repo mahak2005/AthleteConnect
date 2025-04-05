@@ -13,6 +13,7 @@ const navItems = [
   { name: "Match With Athletes", path: "/match-with-athletes" },
   { name: "Find Your Coach", path: "/find-your-coach" },
   { name: "Events", path: "/events" },
+  { name: "Community", path: "/community" },
   { name: "Plans", path: "/plans" },
   { name: "Profile", path: "/user" },
 ]
@@ -45,23 +46,26 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <motion.div
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
-              className="h-24 w-24 relative"
+              className="h-12 w-12 relative"
             >
               <Image
                 src="/Limitless.png"
                 alt="Logo"
                 layout="fill"
                 objectFit="cover"
-                className="rounded-full"
+                className="full"
               />
             </motion.div>
-            <span className="text-xl font-semibold">LimitlessAthlete</span>
-          </Link> */}
-          <div className="flex items-center gap-2">
+            <div className="text-xl font-medium">
+                <span className="text-teal-600">Athlete</span>
+                <span className="text-gray-900">Connect</span>
+              </div>
+          </Link>
+          {/* <div className="flex items-center gap-2">
               <div className="h-10 w-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
                 <span>AC</span>
               </div>
@@ -69,14 +73,14 @@ export function Navbar() {
                 <span className="text-teal-600">Athlete</span>
                 <span className="text-gray-900">Connect</span>
               </div>
-            </div>
+            </div> */}
 
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <motion.div key={item.name} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href={item.path}
-                  className={`text-sm font-medium transition-colors ${user && item.path === user.role === "athlete" ? "text-blue-600" : user && item.path === user.role === "coach" ? "text-green-600" : "text-slate-600 hover:text-slate-900"
+                  className={`text-sm font-medium transition-colors ${user && item.path === user.role === "athlete" ? "text-teal-600" : user && item.path === user.role === "coach" ? "text-green-600" : "text-slate-600 hover:text-slate-900"
                     }`}
                 >
                   {item.name}
@@ -130,7 +134,7 @@ export function Navbar() {
                   <Link
                     key={item.name}
                     href={item.path}
-                    className={`text-sm font-medium transition-colors ${user && item.path === user.role === "athlete" ? "text-blue-600" : user && item.path === user.role === "coach" ? "text-green-600" : "text-slate-600 hover:text-slate-900"
+                    className={`text-sm font-medium transition-colors ${user && item.path === user.role === "athlete" ? "text-teal-600" : user && item.path === user.role === "coach" ? "text-green-600" : "text-slate-600 hover:text-slate-900"
                       }`}
                     onClick={() => setIsOpen(false)}
                   >

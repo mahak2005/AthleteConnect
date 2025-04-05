@@ -111,7 +111,7 @@
 //       transition={{ duration: 0.5 }}
 //     >
 //       <Card className="w-full max-w-2xl mx-auto">
-//         <CardHeader className="flex flex-row items-center justify-between bg-blue-600 text-white">
+//         <CardHeader className="flex flex-row items-center justify-between bg-teal-600 text-white">
 //           <CardTitle className="text-2xl font-semibold">Profile Info</CardTitle>
 //           {isEditing ? (
 //             <div className="space-x-2">
@@ -119,7 +119,7 @@
 //                 size="sm"
 //                 variant="outline"
 //                 onClick={() => setIsEditing(false)}
-//                 className="bg-white text-blue-600 hover:bg-blue-100"
+//                 className="bg-white text-teal-600 hover:bg-teal-100"
 //               >
 //                 <X className="w-4 h-4 mr-2" /> Cancel
 //               </Button>
@@ -127,7 +127,7 @@
 //                 size="sm"
 //                 onClick={handleUpdate}
 //                 disabled={loading}
-//                 className="bg-white text-blue-600 hover:bg-blue-100"
+//                 className="bg-white text-teal-600 hover:bg-teal-100"
 //               >
 //                 <Save className="w-4 h-4 mr-2" />
 //                 {loading ? "Saving..." : "Save Changes"}
@@ -138,7 +138,7 @@
 //               size="sm"
 //               variant="outline"
 //               onClick={() => setIsEditing(true)}
-//               className="bg-white text-blue-600 hover:bg-blue-100"
+//               className="bg-white text-teal-600 hover:bg-teal-100"
 //             >
 //               <Edit className="w-4 h-4 mr-2" /> Edit Profile
 //             </Button>

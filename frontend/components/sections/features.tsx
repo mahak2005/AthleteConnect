@@ -31,7 +31,7 @@ export function Features() {
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              className="bg-white rounded-xl shadow-lg p-6 hover:bg-blue shadow-xl transition-shadow"
+              className="bg-white rounded-xl shadow-lg p-6 hover:bg-teal shadow-xl transition-shadow"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}

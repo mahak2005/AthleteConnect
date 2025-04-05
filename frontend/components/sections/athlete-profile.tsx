@@ -231,7 +231,7 @@ export function AthleteProfile({ id }: { id: string }) {
                   className="flex items-center justify-between hover:bg-gray-50 p-2 rounded"
                 >
                   <div className="flex items-center gap-2">
-                    <Twitter className="h-5 w-5 text-blue-400" />
+                    <Twitter className="h-5 w-5 text-teal-400" />
                     <span>Twitter</span>
                   </div>
                   <span className="text-gray-600">{athleteData.social.followers.twitter}</span>
@@ -241,7 +241,7 @@ export function AthleteProfile({ id }: { id: string }) {
                   className="flex items-center justify-between hover:bg-gray-50 p-2 rounded"
                 >
                   <div className="flex items-center gap-2">
-                    <Facebook className="h-5 w-5 text-blue-600" />
+                    <Facebook className="h-5 w-5 text-teal-600" />
                     <span>Facebook</span>
                   </div>
                   <span className="text-gray-600">{athleteData.social.followers.facebook}</span>

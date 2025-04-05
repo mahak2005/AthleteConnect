@@ -62,7 +62,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="h-8 w-8 bg-blue-600 rounded-full" />
+              <div className="h-8 w-8 bg-teal-600 rounded-full" />
               <span className="text-xl font-semibold">LimitlessAthlete</span>
             </Link>
             <div className="hidden md:flex items-center space-x-6">
@@ -121,7 +121,7 @@ export default function Home() {
           >
             Your Sports Marketing Campaigns,
             <br />
-            <span className="text-blue-600">All in one place!</span>
+            <span className="text-teal-600">All in one place!</span>
           </motion.h1>
         </div>
       </section>

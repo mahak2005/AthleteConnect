@@ -105,11 +105,11 @@ export function PricingSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative rounded-lg border p-6 bg-white ${plan.popular ? "border-blue-200 shadow-lg" : "border-slate-200"
+              className={`relative rounded-lg border p-6 bg-white ${plan.popular ? "border-teal-200 shadow-lg" : "border-slate-200"
                 }`}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-medium px-3 py-1 rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-500 text-white text-xs font-medium px-3 py-1 rounded-full">
                   Most Popular
                 </div>
               )}
@@ -125,7 +125,7 @@ export function PricingSection() {
               <div className="space-y-3">
                 {plan.features.map((feature) => (
                   <div key={feature} className="flex items-center gap-2">
-                    <Check className="h-4 w-4 text-blue-500" />
+                    <Check className="h-4 w-4 text-teal-500" />
                     <span className="text-sm text-slate-600">{feature}</span>
                   </div>
                 ))}

@@ -58,7 +58,7 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <div className="min-h-screen pt-20 bg-gradient-to-b from-blue-500 to-lightblue-400">
+      <div className="min-h-screen pt-20 bg-gradient-to-b from-teal-500 to-teal-400">
         <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-2xl font-bold text-center mb-6">
             {isLogin ? "Login" : "Sign Up"}
@@ -154,7 +154,7 @@ export default function AuthPage() {
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className="text-blue-600 hover:underline"
+              className="text-teal-600 hover:underline"
             >
               {isLogin
                 ? "Don't have an account? Sign Up"

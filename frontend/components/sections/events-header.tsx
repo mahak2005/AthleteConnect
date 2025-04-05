@@ -20,7 +20,7 @@
 //   }
 
 //   return (
-//     <section className="py-12 bg-blue-600 border-b">
+//     <section className="py-12 bg-teal-600 border-b">
 //       <div className="container px-4 mx-auto">
 //         <motion.div
 //           initial={{ opacity: 0, y: 20 }}
