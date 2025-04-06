@@ -5,7 +5,8 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const athleteRoutes = require('./routes/athlete');
 const path = require('path');
-const posts = require('./routes/posts');
+const postsRoutes = require('./routes/posts');
+const eventsRoutes = require('./routes/events');
 
 dotenv.config();
 
@@ -55,7 +56,8 @@ app.get('/api/test', (req, res) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/athlete', athleteRoutes);
-app.use('/api/posts', posts);
+app.use('/api/posts', postsRoutes);
+app.use('/api/events', eventsRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

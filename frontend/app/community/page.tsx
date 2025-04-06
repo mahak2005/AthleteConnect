@@ -17,6 +17,8 @@ import PostCard, { type Post } from "@/components/post-card"
 import type { Event, Discussion, SuccessStory } from "@/types/community"
 import { Navbar } from "@/components/layout/navbar"
 import { createPost, getPosts, likePost, addComment } from "@/services/postService"
+import { EventForm } from '@/components/events/EventForm';
+import { EventList } from '@/components/events/EventList';
 
 export default function CommunityPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,6 +26,8 @@ export default function CommunityPage() {
   const [newPostContent, setNewPostContent] = useState("")
   const [posts, setPosts] = useState<Post[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [showEventForm, setShowEventForm] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
     fetchPosts()
@@ -251,6 +255,11 @@ export default function CommunityPage() {
       description: "Post link has been copied to your clipboard.",
     })
   }
+
+  const handleEventCreated = () => {
+    setShowEventForm(false);
+    setRefreshTrigger(prev => prev + 1);
+  };
 
   return (
     <section className="pt-24 pb-12 bg-gradient-to-b from-teal-500 to-teal-400">
@@ -551,59 +560,25 @@ export default function CommunityPage() {
         </TabsContent>
 
         <TabsContent value="events">
-          <div className="mb-8">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <h2 className="text-2xl font-bold">Upcoming Events</h2>
-              <Button asChild>
-                <Link href="/community/events/calendar">View Calendar</Link>
-              </Button>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold">Upcoming Events</h2>
+            <Button
+              onClick={() => setShowEventForm(!showEventForm)}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            >
+              {showEventForm ? 'Hide Event Form' : 'Create Event'}
+            </Button>
+          </div>
+
+          {showEventForm && (
+            <div className="mb-8">
+              <EventForm onEventCreated={handleEventCreated} />
             </div>
+          )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {events.map((event) => (
-                <motion.div
-                  key={event.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Card className="h-full overflow-hidden">
-                    <div className="relative aspect-video">
-                      <Image src={event.image || "/placeholder.svg"} alt={event.title} fill className="object-cover" />
-                      <Badge className="absolute top-3 right-3">{event.location}</Badge>
-                    </div>
-
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Organized by {event.organizer}</p>
-
-                      <div className="space-y-2 mb-4">
-                        <div className="flex items-center gap-2 text-sm">
-                          <Calendar className="h-4 w-4 text-muted-foreground" />
-                          <span>{event.date}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Clock className="h-4 w-4 text-muted-foreground" />
-                          <span>{event.time}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <MapPin className="h-4 w-4 text-muted-foreground" />
-                          <span>{event.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm">
-                          <Users className="h-4 w-4 text-muted-foreground" />
-                          <span>{event.attendees} attending</span>
-                        </div>
-                      </div>
-
-                      <Button className="w-full" asChild>
-                        <Link href={`/community/events/${event.id}`}>Register</Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Events</h2>
+            <EventList refreshTrigger={refreshTrigger} />
           </div>
         </TabsContent>
 

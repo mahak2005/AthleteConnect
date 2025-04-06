@@ -72,9 +72,9 @@ export default function Home() {
               <Link href="/athletes" className="text-slate-600 hover:text-slate-900">
                 Match With Athletes
               </Link>
-              <Link href="/events" className="text-slate-600 hover:text-slate-900">
+              {/* <Link href="/events" className="text-slate-600 hover:text-slate-900">
                 Events
-              </Link>
+              </Link> */}
               <Link href="/plans" className="text-slate-600 hover:text-slate-900">
                 Plans
               </Link>
