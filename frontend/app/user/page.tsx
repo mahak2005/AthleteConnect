@@ -7,7 +7,42 @@ import { Share2, Camera } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Navbar } from "@/components/layout/navbar";
 
-const defaultAthleteData = {
+interface AthleteData {
+  name: string;
+  image: string;
+  country: string;
+  basicInfo: {
+    fullName: string;
+    age: number;
+    gender: string;
+    nationality: string;
+    state: string;
+    sport: string;
+    category: string;
+    currentRanking: string;
+  };
+  about: string;
+  achievements: {
+    medals: string[];
+    records: string[];
+    awards: string[];
+  };
+  sponsorship: {
+    needs: string[];
+    impact: string;
+  };
+  social: {
+    instagram: string;
+    twitter: string;
+    facebook: string;
+  };
+  contact: {
+    email: string;
+    phone: string;
+  };
+}
+
+const defaultAthleteData: AthleteData = {
   name: "",
   image: "/ath.jpg",
   country: "",
@@ -43,13 +78,13 @@ const defaultAthleteData = {
 };
 
 export default function UserProfile() {
-  const [athlete, setAthlete] = useState(defaultAthleteData);
+  const [athlete, setAthlete] = useState<AthleteData>(defaultAthleteData);
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState(defaultAthleteData);
+  const [formData, setFormData] = useState<AthleteData>(defaultAthleteData);
   const [loading, setLoading] = useState(true);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [needs, setNeeds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -69,11 +104,11 @@ export default function UserProfile() {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch profile');
       }
-      
+
       const data = await response.json();
       // Ensure all required fields are present
       const completeData = {
@@ -100,7 +135,7 @@ export default function UserProfile() {
           ...(data.contact || {})
         }
       };
-      
+
       setAthlete(completeData);
       setFormData(completeData);
       setLoading(false);
@@ -158,7 +193,7 @@ export default function UserProfile() {
 
         // Create image element
         const img = document.createElement('img');
-        
+
         img.onload = async () => {
           try {
             // Set canvas dimensions (max 800px width/height while maintaining aspect ratio)
@@ -184,7 +219,7 @@ export default function UserProfile() {
             // Draw and compress image
             ctx.drawImage(img, 0, 0, width, height);
             const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
-            
+
             const token = localStorage.getItem('token');
             if (!token) {
               throw new Error('No authentication token found');
@@ -208,7 +243,7 @@ export default function UserProfile() {
             // Update the athlete state with the new image
             setAthlete(prev => ({ ...prev, image: data.image }));
             setFormData(prev => ({ ...prev, image: data.image }));
-            
+
             // Clear the preview URL
             URL.revokeObjectURL(previewUrl);
             setImagePreview(null);
@@ -435,6 +470,7 @@ export default function UserProfile() {
                       ...formData,
                       sponsorship: {
                         ...formData.sponsorship,
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                         needs: e.target.value.split(", "),
                       },
                     })

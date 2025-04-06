@@ -45,46 +45,30 @@ export default function MatchHero() {
 
   const fetchAthletes = async () => {
     try {
-      setLoading(true);
-      const response = await fetch('http://localhost:5001/api/athlete/all', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
+      const response = await fetch('http://localhost:5001/api/athlete/all')
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to fetch athletes');
+        throw new Error('Failed to fetch athletes')
       }
-      
-      const data = await response.json();
-      
-      // Transform the data to match the expected format with fallbacks
+      const data = await response.json()
+      // Transform the data to match the expected format
       const transformedAthletes = data.map((athlete: any) => ({
-        _id: athlete._id || '',
-        name: athlete.name || 'Unknown Athlete',
-        gender: athlete.basicInfo?.gender || '',
-        team: 'Independent', // Default value
-        sport: athlete.basicInfo?.sport || '',
-        location: athlete.basicInfo?.state || athlete.country || '',
+        _id: athlete._id,
+        name: athlete.name,
+        gender: athlete.basicInfo.gender || '',
+        team: 'Independent', // Default value since it's not in the schema
+        sport: athlete.basicInfo.sport || '',
+        location: athlete.basicInfo.state || '',
         image: athlete.image || '/ath.jpg',
-        status: athlete.basicInfo?.sponsored || '',
-        basicInfo: {
-          gender: athlete.basicInfo?.gender || '',
-          state: athlete.basicInfo?.state || '',
-          sport: athlete.basicInfo?.sport || '',
-          sponsored: athlete.basicInfo?.sponsored || ''
-        }
-      }));
-      
-      setAthletes(transformedAthletes);
+        status: athlete.basicInfo.sponsored || '',
+        basicInfo: athlete.basicInfo
+      }))
+      setAthletes(transformedAthletes)
+      setLoading(false)
     } catch (error) {
-      console.error('Error fetching athletes:', error);
-      // You might want to show an error message to the user here
-    } finally {
-      setLoading(false);
+      console.error('Error fetching athletes:', error)
+      setLoading(false)
     }
-  };
+  }
 
   // Filter function to pass the values to AthleteGrid
   const filteredAthletes = athletes.filter((athlete) => {

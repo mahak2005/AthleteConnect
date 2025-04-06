@@ -1,7 +1,8 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+// import { Button } from "@/components/ui/button"
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Share2, Instagram, Twitter, Facebook, MapPin, Globe, Mail, Phone } from "lucide-react"
 import Link from "next/link"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -51,11 +52,7 @@ export function AthleteProfile({ id }: AthleteProfileProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    fetchAthleteData()
-  }, [id])
-
-  const fetchAthleteData = async () => {
+  const fetchAthleteData = useCallback(async () => {
     try {
       const response = await fetch(`http://localhost:5001/api/athlete/${id}`)
       if (!response.ok) {
@@ -69,7 +66,11 @@ export function AthleteProfile({ id }: AthleteProfileProps) {
       setError('Failed to load athlete data')
       setLoading(false)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    fetchAthleteData()
+  }, [fetchAthleteData])
 
   if (loading) {
     return <div className="text-center py-8">Loading...</div>

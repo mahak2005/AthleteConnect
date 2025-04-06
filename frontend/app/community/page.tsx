@@ -19,6 +19,7 @@ import { Navbar } from "@/components/layout/navbar"
 import { createPost, getPosts, likePost, addComment } from "@/services/postService"
 
 export default function CommunityPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeTab, setActiveTab] = useState("feed")
   const [newPostContent, setNewPostContent] = useState("")
   const [posts, setPosts] = useState<Post[]>([])
@@ -636,7 +637,7 @@ export default function CommunityPage() {
                         {story.sport}
                       </Badge>
                       <h3 className="text-xl font-bold mb-2">{story.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{story.athlete}'s Journey</p>
+                      <p className="text-sm text-muted-foreground mb-4">{story.athlete}s Journey</p>
 
                       <p className="text-sm mb-4">{story.excerpt}</p>
 
