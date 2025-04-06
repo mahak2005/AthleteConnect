@@ -214,9 +214,9 @@ export default function CommunityPage() {
   const handleLikePost = async (postId: string) => {
     try {
       const updatedLikes = await likePost(postId)
-      setPosts(posts.map(post => 
-        post.id === postId 
-          ? { ...post, likes: updatedLikes } 
+      setPosts(posts.map(post =>
+        post._id === postId
+          ? { ...post, likes: updatedLikes }
           : post
       ))
     } catch (error) {
@@ -232,9 +232,9 @@ export default function CommunityPage() {
   const handleCommentPost = async (postId: string, comment: string) => {
     try {
       const updatedComments = await addComment(postId, comment)
-      setPosts(posts.map(post => 
-        post.id === postId 
-          ? { ...post, comments: updatedComments } 
+      setPosts(posts.map(post =>
+        post._id === postId
+          ? { ...post, comments: updatedComments }
           : post
       ))
     } catch (error) {
@@ -264,384 +264,384 @@ export default function CommunityPage() {
 
   return (
     <section className="pt-24 pb-12 bg-gradient-to-b from-teal-500 to-teal-400">
-    <Navbar/>
-    <div className="container py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="max-w-3xl mx-auto text-center mb-12"
-      >
-        <Badge variant="outline" className="mb-4">
-          Community
-        </Badge>
-        <h1 className="text-4xl font-bold mb-4">
-          Connect with the <span className="gradient-text">AthleteConnect</span> Community
-        </h1>
-        <p className="text-muted-foreground">
-          Share your journey, learn from others, and build meaningful connections with athletes, coaches, and sponsors
-          from around the world.
-        </p>
-      </motion.div>
+      <Navbar />
+      <div className="container py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto text-center mb-12"
+        >
+          <Badge variant="outline" className="mb-4">
+            Community
+          </Badge>
+          <h1 className="text-4xl font-bold mb-4">
+            Connect with the <span className="gradient-text">AthleteConnect</span> Community
+          </h1>
+          <p className="text-muted-foreground">
+            Share your journey, learn from others, and build meaningful connections with athletes, coaches, and sponsors
+            from around the world.
+          </p>
+        </motion.div>
 
-      <Tabs defaultValue="feed" onValueChange={setActiveTab} className="mb-12">
-        <div className="flex justify-center mb-8">
-          <TabsList>
-            <TabsTrigger value="feed">Social Feed</TabsTrigger>
-            <TabsTrigger value="discussions">Discussions</TabsTrigger>
-            <TabsTrigger value="events">Events</TabsTrigger>
-            <TabsTrigger value="success">Success Stories</TabsTrigger>
-          </TabsList>
-        </div>
+        <Tabs defaultValue="feed" onValueChange={setActiveTab} className="mb-12">
+          <div className="flex justify-center mb-8">
+            <TabsList>
+              <TabsTrigger value="feed">Social Feed</TabsTrigger>
+              <TabsTrigger value="discussions">Discussions</TabsTrigger>
+              <TabsTrigger value="events">Events</TabsTrigger>
+              <TabsTrigger value="success">Success Stories</TabsTrigger>
+            </TabsList>
+          </div>
 
-        <TabsContent value="feed">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex gap-4">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Your profile" />
-                      <AvatarFallback>Y</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <Textarea
-                        placeholder="Share your thoughts, achievements, or questions..."
-                        className="resize-none"
-                        value={newPostContent}
-                        onChange={(e) => setNewPostContent(e.target.value)}
-                      />
-                      <div className="flex justify-between items-center mt-4">
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            Add Photo
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            Add Video
+          <TabsContent value="feed">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2 space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex gap-4">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Your profile" />
+                        <AvatarFallback>Y</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <Textarea
+                          placeholder="Share your thoughts, achievements, or questions..."
+                          className="resize-none"
+                          value={newPostContent}
+                          onChange={(e) => setNewPostContent(e.target.value)}
+                        />
+                        <div className="flex justify-between items-center mt-4">
+                          <div className="flex gap-2">
+                            <Button variant="outline" size="sm">
+                              Add Photo
+                            </Button>
+                            <Button variant="outline" size="sm">
+                              Add Video
+                            </Button>
+                          </div>
+                          <Button
+                            size="sm"
+                            onClick={handleCreatePost}
+                            disabled={!newPostContent.trim() || isLoading}
+                          >
+                            {isLoading ? "Posting..." : "Post"}
                           </Button>
                         </div>
-                        <Button 
-                          size="sm" 
-                          onClick={handleCreatePost} 
-                          disabled={!newPostContent.trim() || isLoading}
-                        >
-                          {isLoading ? "Posting..." : "Post"}
-                        </Button>
                       </div>
                     </div>
+                  </CardContent>
+                </Card>
+
+                {isLoading ? (
+                  <div className="flex justify-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
-                </CardContent>
-              </Card>
+                ) : (
+                  posts.map((post) => (
+                    <PostCard
+                      key={post._id}
+                      post={post}
+                      onLike={handleLikePost}
+                      onComment={handleCommentPost}
+                      onShare={handleSharePost}
+                    />
+                  ))
+                )}
 
-              {isLoading ? (
-                <div className="flex justify-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                </div>
-              ) : (
-                posts.map((post) => (
-                  <PostCard
-                    key={post._id}
-                    post={post}
-                    onLike={handleLikePost}
-                    onComment={handleCommentPost}
-                    onShare={handleSharePost}
-                  />
-                ))
-              )}
-
-              <div className="text-center">
-                <Button variant="outline">Load More</Button>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Trending Topics</h3>
-                  <div className="space-y-3">
-                    {["#OlympicDreams", "#TrainingTips", "#AthleteLife", "#SponsorshipGoals", "#CompetitionSeason"].map(
-                      (topic, index) => (
-                        <div key={index} className="flex justify-between items-center">
-                          <Link href="#" className="text-sm hover:text-primary">
-                            {topic}
-                          </Link>
-                          <Badge variant="outline" className="text-xs">
-                            {Math.floor(Math.random() * 100) + 10} posts
-                          </Badge>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Suggested Connections</h3>
-                  <div className="space-y-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage src={`/placeholder.svg?height=40&width=40`} alt="Profile" />
-                          <AvatarFallback>A</AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium truncate">Athlete Name</div>
-                          <div className="text-xs text-muted-foreground">Sport, Country</div>
-                        </div>
-                        <Button variant="outline" size="sm">
-                          Connect
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Upcoming Events</h3>
-                  <div className="space-y-4">
-                    {events.slice(0, 2).map((event) => (
-                      <div key={event.id} className="flex gap-3 items-start">
-                        <div className="bg-primary/10 p-2 rounded-md">
-                          <Calendar className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <div className="font-medium text-sm">{event.title}</div>
-                          <div className="text-xs text-muted-foreground">{event.date}</div>
-                          <Link href={`/community/events/${event.id}`} className="text-xs text-primary">
-                            View Details
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                    <Button variant="outline" size="sm" className="w-full" asChild>
-                      <Link href="/community/events">View All Events</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="discussions">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-                <h2 className="text-2xl font-bold">Forum Discussions</h2>
-                <div className="flex items-center gap-2 w-full sm:w-auto">
-                  <div className="relative flex-1 sm:flex-initial">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search discussions..." className="pl-9" />
-                  </div>
-                  <Button variant="outline" size="icon">
-                    <Filter className="h-4 w-4" />
-                  </Button>
+                <div className="text-center">
+                  <Button variant="outline">Load More</Button>
                 </div>
               </div>
 
-              <Card>
-                <CardContent className="p-0">
-                  <div className="divide-y">
-                    {discussions.map((discussion) => (
-                      <div key={discussion.id} className="p-4 hover:bg-muted/50 transition-colors">
-                        <div className="flex justify-between items-start mb-2">
-                          <Link
-                            href={`/community/discussions/${discussion.id}`}
-                            className="font-medium hover:text-primary"
-                          >
-                            {discussion.title}
-                          </Link>
-                          <Badge variant="outline">{discussion.category}</Badge>
-                        </div>
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <span>By {discussion.author}</span>
-                          <span className="mx-2">•</span>
-                          <span>{discussion.replies} replies</span>
-                          <span className="mx-2">•</span>
-                          <span>{discussion.views} views</span>
-                          <span className="mx-2">•</span>
-                          <span>Last activity {discussion.lastActivity}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="p-4 border-t">
-                  <Button className="w-full" asChild>
-                    <Link href="/community/discussions/new">Start a New Discussion</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
+              <div className="space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Trending Topics</h3>
+                    <div className="space-y-3">
+                      {["#OlympicDreams", "#TrainingTips", "#AthleteLife", "#SponsorshipGoals", "#CompetitionSeason"].map(
+                        (topic, index) => (
+                          <div key={index} className="flex justify-between items-center">
+                            <Link href="#" className="text-sm hover:text-primary">
+                              {topic}
+                            </Link>
+                            <Badge variant="outline" className="text-xs">
+                              {Math.floor(Math.random() * 100) + 10} posts
+                            </Badge>
+                          </div>
+                        ),
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
 
-            <div className="space-y-6">
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Popular Categories</h3>
-                  <div className="space-y-3">
-                    {[
-                      "Training",
-                      "Sponsorship",
-                      "Nutrition",
-                      "Mental Health",
-                      "Competition",
-                      "Equipment",
-                      "Recovery",
-                    ].map((category, index) => (
-                      <div key={index} className="flex justify-between items-center">
-                        <Link href="#" className="text-sm hover:text-primary">
-                          {category}
-                        </Link>
-                        <Badge variant="outline" className="text-xs">
-                          {Math.floor(Math.random() * 50) + 10} topics
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Suggested Connections</h3>
+                    <div className="space-y-4">
+                      {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <Avatar>
+                            <AvatarImage src={`/placeholder.svg?height=40&width=40`} alt="Profile" />
+                            <AvatarFallback>A</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium truncate">Athlete Name</div>
+                            <div className="text-xs text-muted-foreground">Sport, Country</div>
+                          </div>
+                          <Button variant="outline" size="sm">
+                            Connect
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
 
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Top Contributors</h3>
-                  <div className="space-y-4">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage src={`/placeholder.svg?height=40&width=40`} alt="Profile" />
-                          <AvatarFallback>A</AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium truncate">Contributor Name</div>
-                          <div className="text-xs text-muted-foreground">
-                            {Math.floor(Math.random() * 100) + 50} posts
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Upcoming Events</h3>
+                    <div className="space-y-4">
+                      {events.slice(0, 2).map((event) => (
+                        <div key={event.id} className="flex gap-3 items-start">
+                          <div className="bg-primary/10 p-2 rounded-md">
+                            <Calendar className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <div className="font-medium text-sm">{event.title}</div>
+                            <div className="text-xs text-muted-foreground">{event.date}</div>
+                            <Link href={`/community/events/${event.id}`} className="text-xs text-primary">
+                              View Details
+                            </Link>
                           </div>
                         </div>
-                        <Badge variant="outline" className="flex items-center gap-1">
-                          <Award className="h-3 w-3" />
-                          <span>Top</span>
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Community Guidelines</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li className="flex items-start gap-2">
-                      <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Be respectful and supportive of all community members</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Share constructive feedback and advice</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Keep discussions relevant to athletics and sports</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Respect privacy and confidentiality</span>
-                    </li>
-                  </ul>
-                  <Button variant="link" className="p-0 h-auto mt-2" asChild>
-                    <Link href="/community/guidelines">Read Full Guidelines</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="events">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Upcoming Events</h2>
-            <Button
-              onClick={() => setShowEventForm(!showEventForm)}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-            >
-              {showEventForm ? 'Hide Event Form' : 'Create Event'}
-            </Button>
-          </div>
-
-          {showEventForm && (
-            <div className="mb-8">
-              <EventForm onEventCreated={handleEventCreated} />
-            </div>
-          )}
-
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Events</h2>
-            <EventList refreshTrigger={refreshTrigger} />
-          </div>
-        </TabsContent>
-
-        <TabsContent value="success">
-          <div className="mb-8">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <h2 className="text-2xl font-bold">Success Stories</h2>
-              <Button variant="outline" asChild>
-                <Link href="/community/success-stories">
-                  View All Stories
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {successStories.map((story) => (
-                <motion.div
-                  key={story.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Card className="h-full overflow-hidden">
-                    <div className="relative aspect-video">
-                      <Image src={story.image || "/placeholder.svg"} alt={story.title} fill className="object-cover" />
-                    </div>
-
-                    <CardContent className="p-6">
-                      <Badge variant="outline" className="mb-2">
-                        {story.sport}
-                      </Badge>
-                      <h3 className="text-xl font-bold mb-2">{story.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{story.athlete}s Journey</p>
-
-                      <p className="text-sm mb-4">{story.excerpt}</p>
-
-                      <Button variant="outline" className="w-full" asChild>
-                        <Link href={`/community/success-stories/${story.id}`}>Read Full Story</Link>
+                      ))}
+                      <Button variant="outline" size="sm" className="w-full" asChild>
+                        <Link href="/community/events">View All Events</Link>
                       </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-          </div>
+          </TabsContent>
 
-          <div className="bg-muted rounded-xl p-8">
-            <div className="text-center max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold mb-4">Share Your Success Story</h3>
-              <p className="text-muted-foreground mb-6">
-                Has AthleteConnect made a difference in your athletic journey? Share your story to inspire others and
-                show the impact of our community.
-              </p>
-              <Button asChild>
-                <Link href="/community/success-stories/submit">Submit Your Story</Link>
+          <TabsContent value="discussions">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2 space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                  <h2 className="text-2xl font-bold">Forum Discussions</h2>
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <div className="relative flex-1 sm:flex-initial">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input placeholder="Search discussions..." className="pl-9" />
+                    </div>
+                    <Button variant="outline" size="icon">
+                      <Filter className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                <Card>
+                  <CardContent className="p-0">
+                    <div className="divide-y">
+                      {discussions.map((discussion) => (
+                        <div key={discussion.id} className="p-4 hover:bg-muted/50 transition-colors">
+                          <div className="flex justify-between items-start mb-2">
+                            <Link
+                              href={`/community/discussions/${discussion.id}`}
+                              className="font-medium hover:text-primary"
+                            >
+                              {discussion.title}
+                            </Link>
+                            <Badge variant="outline">{discussion.category}</Badge>
+                          </div>
+                          <div className="flex items-center text-sm text-muted-foreground">
+                            <span>By {discussion.author}</span>
+                            <span className="mx-2">•</span>
+                            <span>{discussion.replies} replies</span>
+                            <span className="mx-2">•</span>
+                            <span>{discussion.views} views</span>
+                            <span className="mx-2">•</span>
+                            <span>Last activity {discussion.lastActivity}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                  <CardFooter className="p-4 border-t">
+                    <Button className="w-full" asChild>
+                      <Link href="/community/discussions/new">Start a New Discussion</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
+
+              <div className="space-y-6">
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Popular Categories</h3>
+                    <div className="space-y-3">
+                      {[
+                        "Training",
+                        "Sponsorship",
+                        "Nutrition",
+                        "Mental Health",
+                        "Competition",
+                        "Equipment",
+                        "Recovery",
+                      ].map((category, index) => (
+                        <div key={index} className="flex justify-between items-center">
+                          <Link href="#" className="text-sm hover:text-primary">
+                            {category}
+                          </Link>
+                          <Badge variant="outline" className="text-xs">
+                            {Math.floor(Math.random() * 50) + 10} topics
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Top Contributors</h3>
+                    <div className="space-y-4">
+                      {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="flex items-center gap-3">
+                          <Avatar>
+                            <AvatarImage src={`/placeholder.svg?height=40&width=40`} alt="Profile" />
+                            <AvatarFallback>A</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-medium truncate">Contributor Name</div>
+                            <div className="text-xs text-muted-foreground">
+                              {Math.floor(Math.random() * 100) + 50} posts
+                            </div>
+                          </div>
+                          <Badge variant="outline" className="flex items-center gap-1">
+                            <Award className="h-3 w-3" />
+                            <span>Top</span>
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold mb-4">Community Guidelines</h3>
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-start gap-2">
+                        <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Be respectful and supportive of all community members</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Share constructive feedback and advice</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Keep discussions relevant to athletics and sports</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Respect privacy and confidentiality</span>
+                      </li>
+                    </ul>
+                    <Button variant="link" className="p-0 h-auto mt-2" asChild>
+                      <Link href="/community/guidelines">Read Full Guidelines</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="events">
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-2xl font-bold">Upcoming Events</h2>
+              <Button
+                onClick={() => setShowEventForm(!showEventForm)}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              >
+                {showEventForm ? 'Hide Event Form' : 'Create Event'}
               </Button>
             </div>
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
+
+            {showEventForm && (
+              <div className="mb-8">
+                <EventForm onEventCreated={handleEventCreated} />
+              </div>
+            )}
+
+            <div>
+              <h2 className="text-2xl font-semibold mb-4">Events</h2>
+              <EventList refreshTrigger={refreshTrigger} />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="success">
+            <div className="mb-8">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <h2 className="text-2xl font-bold">Success Stories</h2>
+                <Button variant="outline" asChild>
+                  <Link href="/community/success-stories">
+                    View All Stories
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {successStories.map((story) => (
+                  <motion.div
+                    key={story.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <Card className="h-full overflow-hidden">
+                      <div className="relative aspect-video">
+                        <Image src={story.image || "/placeholder.svg"} alt={story.title} fill className="object-cover" />
+                      </div>
+
+                      <CardContent className="p-6">
+                        <Badge variant="outline" className="mb-2">
+                          {story.sport}
+                        </Badge>
+                        <h3 className="text-xl font-bold mb-2">{story.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{story.athlete}s Journey</p>
+
+                        <p className="text-sm mb-4">{story.excerpt}</p>
+
+                        <Button variant="outline" className="w-full" asChild>
+                          <Link href={`/community/success-stories/${story.id}`}>Read Full Story</Link>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-muted rounded-xl p-8">
+              <div className="text-center max-w-2xl mx-auto">
+                <h3 className="text-2xl font-bold mb-4">Share Your Success Story</h3>
+                <p className="text-muted-foreground mb-6">
+                  Has AthleteConnect made a difference in your athletic journey? Share your story to inspire others and
+                  show the impact of our community.
+                </p>
+                <Button asChild>
+                  <Link href="/community/success-stories/submit">Submit Your Story</Link>
+                </Button>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
     </section>
   )
 }
