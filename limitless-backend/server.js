@@ -18,7 +18,12 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Enhanced CORS configuration
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'], // Your frontend URLs
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://athlete-connect.vercel.app',
+    'https://athleteconnect.onrender.com'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
@@ -62,7 +67,7 @@ app.use('/api/events', eventsRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ 
+  res.status(500).json({
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });

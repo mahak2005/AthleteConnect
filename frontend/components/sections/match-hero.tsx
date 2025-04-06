@@ -58,7 +58,7 @@ export default function MatchHero() {
 
   const fetchAthletes = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/athlete/all')
+      const response = await fetch('https://athleteconnect.onrender.com/api/athlete/all')
       if (!response.ok) {
         throw new Error('Failed to fetch athletes')
       }

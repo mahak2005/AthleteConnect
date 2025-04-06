@@ -99,7 +99,7 @@ export default function UserProfile() {
         return;
       }
 
-      const response = await fetch('http://localhost:5001/api/athlete/profile', {
+      const response = await fetch('https://athleteconnect.onrender.com/api/athlete/profile', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -155,7 +155,7 @@ export default function UserProfile() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5001/api/athlete/profile', {
+      const response = await fetch('https://athleteconnect.onrender.com/api/athlete/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ export default function UserProfile() {
               throw new Error('No authentication token found');
             }
 
-            const response = await fetch('http://localhost:5001/api/athlete/profile/image', {
+            const response = await fetch('https://athleteconnect.onrender.com/api/athlete/profile/image', {
               method: 'PUT',
               headers: {
                 'Authorization': `Bearer ${token}`,

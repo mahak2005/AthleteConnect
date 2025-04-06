@@ -54,7 +54,7 @@ export function AthleteProfile({ id }: AthleteProfileProps) {
 
   const fetchAthleteData = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:5001/api/athlete/${id}`)
+      const response = await fetch(`https://athleteconnect.onrender.com/api/athlete/${id}`)
       if (!response.ok) {
         throw new Error('Failed to fetch athlete data')
       }

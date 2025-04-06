@@ -26,7 +26,7 @@ export default function AuthPage() {
 
     try {
       const endpoint = isLogin ? "/api/auth/login" : "/api/auth/register";
-      const response = await fetch(`http://localhost:5001${endpoint}`, {
+      const response = await fetch(`https://athleteconnect.onrender.com${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export default function AuthPage() {
       // Store token and user data
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.athlete));
-      
+
       // Redirect based on role
       if (data.athlete.role === "athlete") {
         router.push("/user");
@@ -63,7 +63,7 @@ export default function AuthPage() {
           <h1 className="text-2xl font-bold text-center mb-6">
             {isLogin ? "Login" : "Sign Up"}
           </h1>
-          
+
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
               {error}

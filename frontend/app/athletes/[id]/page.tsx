@@ -54,7 +54,7 @@ export default function AthletePage() {
       setLoading(true)
       setError(null)
 
-      const response = await fetch(`http://localhost:5001/api/athlete/${id}`)
+      const response = await fetch(`https://athleteconnect.onrender.com/api/athlete/${id}`)
       const data = await response.json()
 
       if (!response.ok) {

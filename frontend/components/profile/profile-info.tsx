@@ -1,5 +1,3 @@
-
-
 "use client"
 
 import { useEffect, useState } from "react"
@@ -63,7 +61,7 @@ export function ProfileInfo() {
     setError(null)
 
     try {
-      const response = await fetch("http://localhost:5001/api/user/profile", {
+      const response = await fetch("https://athleteconnect.onrender.com/api/user/profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
