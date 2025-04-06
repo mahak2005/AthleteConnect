@@ -85,7 +85,11 @@ export function Navbar() {
               <motion.div key={item.name} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   href={item.path}
-                  className={`text-sm font-medium transition-colors ${user && item.path === user.role === "athlete" ? "text-teal-600" : user && item.path === user.role === "coach" ? "text-green-600" : "text-slate-600 hover:text-slate-900"
+                  className={`text-sm font-medium transition-colors ${user && user.role === "athlete" && item.path === "/athlete"
+                      ? "text-teal-600"
+                      : user && user.role === "coach" && item.path === "/coach"
+                        ? "text-green-600"
+                        : "text-slate-600 hover:text-slate-900"
                     }`}
                 >
                   {item.name}
@@ -139,7 +143,11 @@ export function Navbar() {
                   <Link
                     key={item.name}
                     href={item.path}
-                    className={`text-sm font-medium transition-colors ${user && item.path === user.role === "athlete" ? "text-teal-600" : user && item.path === user.role === "coach" ? "text-green-600" : "text-slate-600 hover:text-slate-900"
+                    className={`text-sm font-medium transition-colors ${user && user.role === "athlete" && item.path === "/athlete"
+                        ? "text-teal-600"
+                        : user && user.role === "coach" && item.path === "/coach"
+                          ? "text-green-600"
+                          : "text-slate-600 hover:text-slate-900"
                       }`}
                     onClick={() => setIsOpen(false)}
                   >
