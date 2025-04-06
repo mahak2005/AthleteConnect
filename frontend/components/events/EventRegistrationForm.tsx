@@ -16,6 +16,7 @@ export const EventRegistrationForm: React.FC<EventRegistrationFormProps> = ({
   onClose,
   onRegistrationSuccess
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<RegistrationData>({

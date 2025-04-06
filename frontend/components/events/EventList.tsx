@@ -51,6 +51,7 @@ export const EventList: React.FC<EventListProps> = ({ refreshTrigger = 0 }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       {events.map((event, index) => (
         <div key={event._id} className="bg-white rounded-lg shadow p-6">
           <div className="flex flex-col h-full">
