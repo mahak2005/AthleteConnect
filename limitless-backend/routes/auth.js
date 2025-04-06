@@ -48,7 +48,11 @@ router.post('/register', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: athlete._id },
+      { 
+        id: athlete._id,
+        email: athlete.email,
+        role: athlete.role
+      },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '1d' }
     );
@@ -101,7 +105,11 @@ router.post('/login', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: athlete._id },
+      { 
+        id: athlete._id,
+        email: athlete.email,
+        role: athlete.role
+      },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '1d' }
     );

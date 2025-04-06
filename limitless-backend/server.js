@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const athleteRoutes = require('./routes/athlete');
 const path = require('path');
+const posts = require('./routes/posts');
 
 dotenv.config();
 
@@ -16,8 +17,8 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Enhanced CORS configuration
 app.use(cors({
-  origin: 'http://localhost:3000', // Your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: ['http://localhost:3000', 'http://localhost:3001'], // Your frontend URLs
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
@@ -54,6 +55,7 @@ app.get('/api/test', (req, res) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/athlete', athleteRoutes);
+app.use('/api/posts', posts);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

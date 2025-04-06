@@ -1,25 +1,23 @@
 {
-  "name": "backend",
+  "name": "athleteconnect-backend",
   "version": "1.0.0",
-  "main": "index.js",
-  
+  "description": "Backend for AthleteConnect",
+  "main": "server.js",
   "scripts": {
-  "dev": "npx ts-node src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.js"
-}
-,
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.10.0",
+    "mongoose": "^7.0.3",
     "next": "^15.1.7"
   },
   "devDependencies": {
@@ -29,8 +27,8 @@
     "@types/jsonwebtoken": "^9.0.8",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.13.4",
+    "nodemon": "^2.0.22",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
-  },
-  "description": ""
+  }
 }

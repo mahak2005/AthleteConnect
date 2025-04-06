@@ -19,7 +19,7 @@ const defaultAthleteData = {
     state: "",
     sport: "",
     category: "",
-    currentRanking: "",
+    sponsored: "",
   },
   about: "",
   achievements: {

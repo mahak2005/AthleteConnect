@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -10,12 +10,12 @@ import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Heart, MessageCircle, Share2, Send, MoreHorizontal } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import type { Comment } from "@/types/community"
+import { formatDistanceToNow } from 'date-fns'
 
 export interface Post {
-  id: string
+  _id: string
   user: {
-    id: string
+    _id: string
     name: string
     image: string
     sport: string
@@ -23,10 +23,18 @@ export interface Post {
   }
   content: string
   image?: string
-  likes: number
-  comments: Comment[]
-  date: string
-  isLiked?: boolean
+  likes: string[]
+  comments: {
+    _id: string
+    user: {
+      _id: string
+      name: string
+      image: string
+    }
+    content: string
+    createdAt: string
+  }[]
+  createdAt: string
 }
 
 interface PostCardProps {
@@ -37,33 +45,29 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post, onLike, onComment, onShare }: PostCardProps) {
-  const [isLiked, setIsLiked] = useState(post.isLiked || false)
-  const [likesCount, setLikesCount] = useState(post.likes)
-  const [showComments, setShowComments] = useState(false)
-  const [newComment, setNewComment] = useState("")
-  const [comments, setComments] = useState<Comment[]>(post.comments || [])
+  const [isLiked, setIsLiked] = useState(false)
+  const [comment, setComment] = useState("")
+  const [isCommenting, setIsCommenting] = useState(false)
+
+  // Get current user ID from localStorage
+  useEffect(() => {
+    const userData = localStorage.getItem('userData')
+    if (userData) {
+      const { _id } = JSON.parse(userData)
+      setIsLiked(post.likes.includes(_id))
+    }
+  }, [post.likes])
 
   const handleLike = () => {
-    const newLikedState = !isLiked
-    setIsLiked(newLikedState)
-    setLikesCount((prevCount) => (newLikedState ? prevCount + 1 : prevCount - 1))
-    onLike(post.id)
+    setIsLiked(!isLiked)
+    onLike(post._id)
   }
 
   const handleComment = () => {
-    if (newComment.trim()) {
-      const comment: Comment = {
-        id: Date.now().toString(),
-        userId: "current-user", // This would come from auth in a real app
-        userName: "You",
-        userImage: "/placeholder.svg?height=40&width=40",
-        content: newComment,
-        date: "Just now",
-      }
-
-      setComments([...comments, comment])
-      onComment(post.id, newComment)
-      setNewComment("")
+    if (comment.trim()) {
+      onComment(post._id, comment)
+      setComment("")
+      setIsCommenting(false)
     }
   }
 
@@ -72,7 +76,7 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
       <Card>
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <Link href={`/profile/${post.user.id}`} className="flex items-center gap-3">
+            <Link href={`/profile/${post.user._id}`} className="flex items-center gap-3">
               <Avatar>
                 <AvatarImage src={post.user.image} alt={post.user.name} />
                 <AvatarFallback>{post.user.name.charAt(0)}</AvatarFallback>
@@ -80,7 +84,7 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
               <div>
                 <div className="font-medium">{post.user.name}</div>
                 <div className="text-xs text-muted-foreground">
-                  {post.user.sport}, {post.user.country} • {post.date}
+                  {post.user.sport}, {post.user.country} • {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
                 </div>
               </div>
             </Link>
@@ -94,98 +98,85 @@ export default function PostCard({ post, onLike, onComment, onShare }: PostCardP
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>Save Post</DropdownMenuItem>
                 <DropdownMenuItem>Report</DropdownMenuItem>
-                <DropdownMenuItem>Copy Link</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onShare(post._id)}>Copy Link</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
 
-          <Link href={`/community/posts/${post.id}`}>
+          <Link href={`/community/posts/${post._id}`}>
             <p className="mb-4">{post.content}</p>
 
             {post.image && (
               <div className="relative h-[300px] w-full mb-4 rounded-lg overflow-hidden">
-                <Image src={post.image || "/placeholder.svg"} alt="Post image" fill className="object-cover" />
+                <Image src={post.image} alt="Post image" fill className="object-cover" />
               </div>
             )}
           </Link>
 
-          <div className="flex justify-between items-center">
-            <div className="flex gap-6">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`flex items-center gap-1 ${isLiked ? "text-red-500" : ""}`}
-                onClick={handleLike}
-              >
-                <Heart className={`h-4 w-4 ${isLiked ? "fill-red-500" : ""}`} />
-                <span>{likesCount}</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center gap-1"
-                onClick={() => setShowComments(!showComments)}
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>{comments.length}</span>
-              </Button>
-            </div>
-            <Button variant="ghost" size="sm" onClick={() => onShare(post.id)}>
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
+          <div className="flex items-center gap-4 mb-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`flex items-center gap-2 ${isLiked ? 'text-red-500' : ''}`}
+              onClick={handleLike}
+            >
+              <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
+              <span>{post.likes.length}</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-2"
+              onClick={() => setIsCommenting(!isCommenting)}
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>{post.comments.length}</span>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="flex items-center gap-2"
+              onClick={() => onShare(post._id)}
+            >
+              <Share2 className="h-4 w-4" />
+              <span>Share</span>
             </Button>
           </div>
-        </CardContent>
 
-        {showComments && (
-          <CardFooter className="flex flex-col p-6 pt-0 border-t">
-            <div className="w-full space-y-4 mt-4">
-              {comments.map((comment) => (
-                <div key={comment.id} className="flex gap-3">
+          {isCommenting && (
+            <div className="flex gap-2 mb-4">
+              <Textarea
+                placeholder="Write a comment..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="flex-1"
+              />
+              <Button size="sm" onClick={handleComment} disabled={!comment.trim()}>
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+
+          {post.comments.length > 0 && (
+            <div className="space-y-4">
+              {post.comments.map((comment) => (
+                <div key={comment._id} className="flex gap-3">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={comment.userImage} alt={comment.userName} />
-                    <AvatarFallback>{comment.userName.charAt(0)}</AvatarFallback>
+                    <AvatarImage src={comment.user.image} alt={comment.user.name} />
+                    <AvatarFallback>{comment.user.name.charAt(0)}</AvatarFallback>
                   </Avatar>
-                  <div className="flex-1">
-                    <div className="bg-muted p-3 rounded-lg">
-                      <div className="font-medium text-sm">{comment.userName}</div>
-                      <p className="text-sm">{comment.content}</p>
-                    </div>
-                    <div className="flex gap-4 mt-1">
-                      <button className="text-xs text-muted-foreground hover:text-primary">Like</button>
-                      <button className="text-xs text-muted-foreground hover:text-primary">Reply</button>
-                      <span className="text-xs text-muted-foreground">{comment.date}</span>
+                  <div>
+                    <div className="font-medium text-sm">{comment.user.name}</div>
+                    <p className="text-sm">{comment.content}</p>
+                    <div className="text-xs text-muted-foreground">
+                      {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                     </div>
                   </div>
                 </div>
               ))}
-
-              <div className="flex gap-3 mt-4">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/placeholder.svg?height=32&width=32" alt="Your profile" />
-                  <AvatarFallback>Y</AvatarFallback>
-                </Avatar>
-                <div className="flex-1 flex gap-2">
-                  <Textarea
-                    placeholder="Write a comment..."
-                    className="min-h-[40px] resize-none"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault()
-                        handleComment()
-                      }
-                    }}
-                  />
-                  <Button size="icon" onClick={handleComment} disabled={!newComment.trim()}>
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
             </div>
-          </CardFooter>
-        )}
+          )}
+        </CardContent>
       </Card>
     </motion.div>
   )

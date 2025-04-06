@@ -36,7 +36,7 @@ const athleteSchema = new mongoose.Schema({
     state: { type: String, default: "" },
     sport: { type: String, default: "" },
     category: { type: String, default: "" },
-    currentRanking: { type: String, default: "" }
+    sponsored: { type: String, default: "" }
   },
   about: { type: String, default: "" },
   achievements: {

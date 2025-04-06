@@ -23,7 +23,7 @@ interface AthleteData {
     state: string
     sport: string
     category: string
-    currentRanking: string
+    sponsored: string
   }
   about: string
   achievements: {

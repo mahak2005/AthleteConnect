@@ -21,7 +21,7 @@ interface Athlete {
     gender: string
     state: string
     sport: string
-    currentRanking: string
+    sponsored: string
   }
 }
 

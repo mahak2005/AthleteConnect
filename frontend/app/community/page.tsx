@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -16,85 +16,33 @@ import { toast } from "@/components/ui/use-toast"
 import PostCard, { type Post } from "@/components/post-card"
 import type { Event, Discussion, SuccessStory } from "@/types/community"
 import { Navbar } from "@/components/layout/navbar"
+import { createPost, getPosts, likePost, addComment } from "@/services/postService"
+
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("feed")
   const [newPostContent, setNewPostContent] = useState("")
-  const [posts, setPosts] = useState<Post[]>([
-    {
-      id: "1",
-      user: {
-        id: "user1",
-        name: "Maria Rodriguez",
-        image: "/placeholder.svg?height=100&width=100",
-        sport: "Track & Field",
-        country: "Mexico",
-      },
-      content:
-        "Just finished an amazing training session! Feeling stronger every day. Thanks to my coach @coachpedro for pushing me to my limits. #TrackAndField #RoadToSuccess",
-      image: "/placeholder.svg?height=400&width=600",
-      likes: 245,
-      comments: [
-        {
-          id: "c1",
-          userId: "user2",
-          userName: "Coach Pedro",
-          userImage: "/placeholder.svg?height=40&width=40",
-          content: "Great work today, Maria! Your dedication is inspiring.",
-          date: "1 day ago",
-        },
-        {
-          id: "c2",
-          userId: "user3",
-          userName: "Sarah Thompson",
-          userImage: "/placeholder.svg?height=40&width=40",
-          content: "Keep it up! You're making amazing progress.",
-          date: "1 day ago",
-        },
-      ],
-      date: "2 days ago",
-    },
-    {
-      id: "2",
-      user: {
-        id: "user2",
-        name: "Kwame Osei",
-        image: "/placeholder.svg?height=100&width=100",
-        sport: "Basketball",
-        country: "Ghana",
-      },
-      content:
-        "So grateful for the support from AthleteConnect and all my sponsors. Your belief in me makes all the difference! #Grateful #ChaseYourDreams",
-      image: "/placeholder.svg?height=400&width=600",
-      likes: 189,
-      comments: [
-        {
-          id: "c3",
-          userId: "user4",
-          userName: "James Wilson",
-          userImage: "/placeholder.svg?height=40&width=40",
-          content: "You deserve it all, Kwame! Your hard work is paying off.",
-          date: "5 days ago",
-        },
-      ],
-      date: "1 week ago",
-    },
-    {
-      id: "3",
-      user: {
-        id: "user3",
-        name: "Aisha Patel",
-        image: "/placeholder.svg?height=100&width=100",
-        sport: "Swimming",
-        country: "India",
-      },
-      content:
-        "New personal best today! 🏊‍♀️ All the hard work is paying off. Thank you to everyone who has supported me on this journey. Special thanks to my sponsors who make it possible for me to compete at this level.",
-      image: "/placeholder.svg?height=400&width=600",
-      likes: 312,
-      comments: [],
-      date: "3 days ago",
-    },
-  ])
+  const [posts, setPosts] = useState<Post[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
+  const fetchPosts = async () => {
+    try {
+      const fetchedPosts = await getPosts()
+      setPosts(fetchedPosts)
+    } catch (error) {
+      console.error('Error fetching posts:', error)
+      toast({
+        title: "Error",
+        description: "Failed to load posts. Please try again later.",
+        variant: "destructive"
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const discussions: Discussion[] = [
     {
@@ -236,42 +184,61 @@ export default function CommunityPage() {
     },
   ]
 
-  const handleCreatePost = () => {
+  const handleCreatePost = async () => {
     if (newPostContent.trim()) {
-      const newPost: Post = {
-        id: Date.now().toString(),
-        user: {
-          id: "current-user", // This would come from auth in a real app
-          name: "You",
-          image: "/placeholder.svg?height=100&width=100",
-          sport: "Your Sport",
-          country: "Your Country",
-        },
-        content: newPostContent,
-        likes: 0,
-        comments: [],
-        date: "Just now",
-        isLiked: false,
+      try {
+        const newPost = await createPost(newPostContent)
+        setPosts([newPost, ...posts])
+        setNewPostContent("")
+        toast({
+          title: "Post created!",
+          description: "Your post has been published to the community feed.",
+        })
+      } catch (error) {
+        console.error('Error creating post:', error)
+        toast({
+          title: "Error",
+          description: "Failed to create post. Please try again later.",
+          variant: "destructive"
+        })
       }
+    }
+  }
 
-      setPosts([newPost, ...posts])
-      setNewPostContent("")
-
+  const handleLikePost = async (postId: string) => {
+    try {
+      const updatedLikes = await likePost(postId)
+      setPosts(posts.map(post => 
+        post.id === postId 
+          ? { ...post, likes: updatedLikes } 
+          : post
+      ))
+    } catch (error) {
+      console.error('Error liking post:', error)
       toast({
-        title: "Post created!",
-        description: "Your post has been published to the community feed.",
+        title: "Error",
+        description: "Failed to like post. Please try again later.",
+        variant: "destructive"
       })
     }
   }
 
-  const handleLikePost = (postId: string) => {
-    // In a real app, this would call an API to like/unlike the post
-    console.log(`Post ${postId} liked/unliked`)
-  }
-
-  const handleCommentPost = (postId: string, comment: string) => {
-    // In a real app, this would call an API to add the comment
-    console.log(`Comment added to post ${postId}: ${comment}`)
+  const handleCommentPost = async (postId: string, comment: string) => {
+    try {
+      const updatedComments = await addComment(postId, comment)
+      setPosts(posts.map(post => 
+        post.id === postId 
+          ? { ...post, comments: updatedComments } 
+          : post
+      ))
+    } catch (error) {
+      console.error('Error adding comment:', error)
+      toast({
+        title: "Error",
+        description: "Failed to add comment. Please try again later.",
+        variant: "destructive"
+      })
+    }
   }
 
   const handleSharePost = (postId: string) => {
@@ -342,8 +309,12 @@ export default function CommunityPage() {
                             Add Video
                           </Button>
                         </div>
-                        <Button size="sm" onClick={handleCreatePost} disabled={!newPostContent.trim()}>
-                          Post
+                        <Button 
+                          size="sm" 
+                          onClick={handleCreatePost} 
+                          disabled={!newPostContent.trim() || isLoading}
+                        >
+                          {isLoading ? "Posting..." : "Post"}
                         </Button>
                       </div>
                     </div>
@@ -351,15 +322,21 @@ export default function CommunityPage() {
                 </CardContent>
               </Card>
 
-              {posts.map((post) => (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  onLike={handleLikePost}
-                  onComment={handleCommentPost}
-                  onShare={handleSharePost}
-                />
-              ))}
+              {isLoading ? (
+                <div className="flex justify-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                </div>
+              ) : (
+                posts.map((post) => (
+                  <PostCard
+                    key={post._id}
+                    post={post}
+                    onLike={handleLikePost}
+                    onComment={handleCommentPost}
+                    onShare={handleSharePost}
+                  />
+                ))
+              )}
 
               <div className="text-center">
                 <Button variant="outline">Load More</Button>

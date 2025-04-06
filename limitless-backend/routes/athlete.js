@@ -54,10 +54,31 @@ router.put('/profile', auth, async (req, res) => {
 // Get all athletes
 router.get('/all', async (req, res) => {
   try {
-    const athletes = await Athlete.find({ role: 'athlete' }).select('-password');
-    res.json(athletes);
+    console.log('Fetching all athletes...');
+    const athletes = await Athlete.find({ role: 'athlete' })
+      .select('-password')
+      .lean(); // Convert to plain JavaScript objects
+    
+    console.log(`Found ${athletes.length} athletes`);
+    
+    // Transform the data to include only necessary fields
+    const transformedAthletes = athletes.map(athlete => ({
+      _id: athlete._id,
+      name: athlete.name,
+      image: athlete.image,
+      country: athlete.country,
+      sport: athlete.basicInfo?.sport || '',
+      role: athlete.role,
+      achievements: athlete.achievements || {}
+    }));
+    
+    res.json(transformedAthletes);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error fetching athletes:', error);
+    res.status(500).json({ 
+      message: 'Server error while fetching athletes',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 
