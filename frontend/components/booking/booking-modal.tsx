@@ -83,7 +83,7 @@ export function BookingModal({ isOpen, onClose, coach, selectedPackage }: Bookin
           <DialogDescription>
             {step === "form"
               ? selectedPackage
-                ? `${selectedPackage.title} - $${selectedPackage.price}`
+                ? `${selectedPackage.title} - Rs ${selectedPackage.price}`
                 : "Complete the form below to book your session"
               : "Your session has been booked successfully"}
           </DialogDescription>

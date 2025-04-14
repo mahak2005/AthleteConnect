@@ -176,7 +176,7 @@ export function CoachProfile({ id }: { id: string }) {
                         </CardDescription>
                       </div>
                       <Button onClick={() => handleBookNow(pkg.id)} className="bg-teal-600 hover:bg-teal-700">
-                        ${pkg.price} - Book Now
+                        Rs{pkg.price} - Book Now
                       </Button>
                     </div>
                   </CardHeader>
@@ -208,7 +208,7 @@ export function CoachProfile({ id }: { id: string }) {
                         <CardDescription className="mt-1">{service.description}</CardDescription>
                       </div>
                       <Button onClick={() => handleBookNow(service.id)} className="bg-teal-600 hover:bg-teal-700">
-                        ${service.price} - Book Now
+                        Rs{service.price} - Book Now
                       </Button>
                     </div>
                   </CardHeader>

@@ -213,8 +213,8 @@ export function AIMatchingForm() {
                                         className="mt-2"
                                     />
                                     <div className="flex justify-between mt-1">
-                                        <span className="text-xs text-gray-500">$5,000</span>
-                                        <span className="text-xs text-gray-500">$500,000+</span>
+                                        <span className="text-xs text-gray-500">Rs 5,000</span>
+                                        <span className="text-xs text-gray-500">Rs 500,000+</span>
                                     </div>
                                 </div>
                             </motion.div>

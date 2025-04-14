@@ -1,0 +1,50 @@
+'use client';
+
+import { useState } from 'react';
+import TrainingPlanForm from '@/components/saathi/TrainingPlanForm';
+import TrainingPlanDisplay from '@/components/saathi/TrainingPlanDisplay';
+import { TrainingPlan } from '@/types/training';
+
+export default function SaathiPage() {
+    const [trainingPlan, setTrainingPlan] = useState<TrainingPlan | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleFormSubmit = async (formData: any) => {
+        setIsLoading(true);
+        try {
+            const response = await fetch('/api/generate-plan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to generate training plan');
+            }
+
+            const data = await response.json();
+            setTrainingPlan(data);
+        } catch (error) {
+            console.error('Error generating training plan:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="container mx-auto px-4 py-8">
+            <h1 className="text-4xl font-bold mb-8 text-center">Saathi - Your AI Training Partner</h1>
+            <div className="max-w-3xl mx-auto">
+                <TrainingPlanForm onSubmit={handleFormSubmit} isLoading={isLoading} />
+                {isLoading && (
+                    <div className="flex justify-center my-8">
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                    </div>
+                )}
+                {trainingPlan && <TrainingPlanDisplay plan={trainingPlan} />}
+            </div>
+        </div>
+    );
+} 

@@ -40,7 +40,7 @@ const events: Event[] = [
     image: "/placeholder.svg?height=200&width=300",
     description:
       "Join us for an intensive 4-day virtual training camp focused on sprint techniques. Learn from Olympic-level coaches and improve your performance.",
-    prizeMoney: "$1,000 in training scholarships",
+    prizeMoney: "Rs 1,000 in training scholarships",
     registrationDeadline: "June 10, 2023",
     requirements: [
       "Track & Field athletes",

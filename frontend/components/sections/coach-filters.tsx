@@ -95,10 +95,10 @@ export function CoachFilters({ onFilterChange }: CoachFiltersProps) {
 
           <div>
             <Label htmlFor="price-range" className="block mb-2 text-sm">
-              Price Range ($/hour)
+              Price Range (Rs/hour)
             </Label>
             <div className="flex items-center gap-4">
-              <span className="text-sm">${priceRange[0]}</span>
+              <span className="text-sm">Rs{priceRange[0]}</span>
               <input
                 type="range"
                 min="0"
@@ -118,7 +118,7 @@ export function CoachFilters({ onFilterChange }: CoachFiltersProps) {
                 onChange={(e) => setPriceRange([priceRange[0], Number.parseInt(e.target.value)])}
                 className="flex-1"
               />
-              <span className="text-sm">${priceRange[1]}</span>
+              <span className="text-sm">Rs{priceRange[1]}</span>
             </div>
           </div>
 
