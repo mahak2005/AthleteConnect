@@ -116,7 +116,7 @@ export function PricingSection() {
               <h3 className="text-xl font-semibold mb-2">{plan.name}</h3>
               <p className="text-sm text-slate-600 mb-4">{plan.description}</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold">${isYearly ? plan.price.yearly : plan.price.monthly}</span>
+                <span className="text-4xl font-bold">Rs {isYearly ? plan.price.yearly : plan.price.monthly}</span>
                 <span className="text-slate-600">/month</span>
               </div>
               <Button className="w-full mb-6" variant={plan.popular ? "default" : "outline"}>

@@ -98,7 +98,7 @@ export function CoachGrid() {
                 <p className="text-sm text-gray-700 mb-4">{coach.description}</p>
 
                 <div className="flex justify-between items-center">
-                  <div className="text-teal-600 font-medium">${coach.hourlyRate}/hour</div>
+                  <div className="text-teal-600 font-medium">Rs{coach.hourlyRate}/hour</div>
                   <Link href={`/coaches/${coach.id}`}>
                     <Button className="bg-teal-600 hover:bg-teal-700">View Profile</Button>
                   </Link>
