@@ -47,7 +47,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { LoginModal } from "@/components/auth/login-modal";  // Import Login Modal
-import { SignupModal} from "@/components/auth/signup-modal"; // Import Signup Modal
+import { SignupModal } from "@/components/auth/signup-modal"; // Import Signup Modal
 
 interface AuthContextType {
   token: string | null;

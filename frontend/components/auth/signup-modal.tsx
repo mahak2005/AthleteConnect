@@ -6,15 +6,15 @@ import { Eye, EyeOff, X } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useAuth } from "./auth-context"; 
+import { useAuth } from "./auth-context";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const userTypes = [
   { id: "athlete", label: "ATHLETE", icon: "/placeholder.svg?height=60&width=60" },
- 
+
   { id: "team", label: "TEAM", icon: "/placeholder.svg?height=60&width=60" },
-  
+
 ];
 
 export function SignupModal() {
@@ -29,7 +29,7 @@ export function SignupModal() {
   const [userType, setUserType] = useState<"brand" | "athlete">("athlete");
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();

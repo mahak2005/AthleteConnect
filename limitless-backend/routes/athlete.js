@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
     const athlete = await Athlete.findById(decoded.id);
-    
+
     if (!athlete) {
       return res.status(401).json({ message: 'Athlete not found' });
     }
@@ -78,19 +78,19 @@ router.get('/:id', async (req, res) => {
 router.put('/profile/image', auth, async (req, res) => {
   try {
     const { image } = req.body;
-    
+
     if (!image) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        message: 'No image data provided' 
+        message: 'No image data provided'
       });
     }
 
     // Validate that it's a base64 string
     if (!image.startsWith('data:image/')) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         success: false,
-        message: 'Invalid image format. Please provide a valid image file.' 
+        message: 'Invalid image format. Please provide a valid image file.'
       });
     }
 
@@ -101,23 +101,23 @@ router.put('/profile/image', auth, async (req, res) => {
     ).select('-password');
 
     if (!athlete) {
-      return res.status(404).json({ 
+      return res.status(404).json({
         success: false,
-        message: 'Athlete not found' 
+        message: 'Athlete not found'
       });
     }
 
-    res.json({ 
+    res.json({
       success: true,
       message: 'Image uploaded successfully',
-      image: athlete.image 
+      image: athlete.image
     });
   } catch (error) {
     console.error('Error uploading image:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       success: false,
       message: 'Server error while uploading image',
-      error: error.message 
+      error: error.message
     });
   }
 });

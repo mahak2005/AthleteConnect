@@ -4,8 +4,10 @@ import { useState } from 'react';
 import TrainingPlanForm from '@/components/saathi/TrainingPlanForm';
 import TrainingPlanDisplay from '@/components/saathi/TrainingPlanDisplay';
 import { TrainingPlan } from '@/types/training';
+import { Navbar } from '@/components/layout/navbar';
 
 export default function SaathiPage() {
+
     const [trainingPlan, setTrainingPlan] = useState<TrainingPlan | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -34,7 +36,8 @@ export default function SaathiPage() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-24 bg-gradient-to-b from-teal-500 to-teal-400">
+            <Navbar />
             <h1 className="text-4xl font-bold mb-8 text-center">Saathi - Your AI Training Partner</h1>
             <div className="max-w-3xl mx-auto">
                 <TrainingPlanForm onSubmit={handleFormSubmit} isLoading={isLoading} />

@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 const sports = [
-  
+
   {
     title: "Sponsor Football",
     profiles: "43 matching profiles",
@@ -18,7 +18,7 @@ const sports = [
     image: "/basketball.jpg",
     href: "/match-with-athletes/basketball",
   },
-  
+
   {
     title: "Sponsor Tennis",
     profiles: "42 matching profiles",
@@ -31,7 +31,7 @@ const sports = [
     image: "/athletics.jpg",
     href: "/match-with-athletes/running",
   },
- 
+
   {
     title: "Sponsor Hockey",
     profiles: "42 matching profiles",

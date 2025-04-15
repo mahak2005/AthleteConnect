@@ -1,5 +1,5 @@
 
-import mongoose, { Schema,model, Document } from "mongoose";
+import mongoose, { Schema, model, Document } from "mongoose";
 
 interface IPrimaryInfo {
   birthdate?: Date;
@@ -44,11 +44,11 @@ const UserSchema: Schema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     userType: { type: String, default: "Athlete" },
-    sport: { type: String, required: true},
+    sport: { type: String, required: true },
     profileImage: { type: String },
 
     primaryInfo: { type: PrimaryInfoSchema, default: {} },
-    
+
     whySponsorMe: { type: String, default: "" },
     awardsAccolades: { type: [String], default: [] },
     gallery: { type: [String], default: [] },

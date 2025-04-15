@@ -8,9 +8,9 @@ router.post('/', auth, async (req, res) => {
   try {
     console.log('Creating post with data:', { content: req.body.content, image: req.body.image });
     console.log('User ID from token:', req.user.id);
-    
+
     const { content, image } = req.body;
-    
+
     // Validate content
     if (!content || content.trim().length === 0) {
       return res.status(400).json({ msg: 'Post content cannot be empty' });
@@ -23,14 +23,14 @@ router.post('/', auth, async (req, res) => {
     });
 
     console.log('Post object before save:', post);
-    
+
     await post.save();
     console.log('Post saved successfully');
-    
+
     // Populate athlete data with relevant fields
     await post.populate('user', 'name image basicInfo.sport country');
     console.log('Post after population:', post);
-    
+
     res.status(201).json({
       _id: post._id,
       user: {
@@ -49,7 +49,7 @@ router.post('/', auth, async (req, res) => {
   } catch (err) {
     console.error('Error creating post:', err);
     console.error('Error stack:', err.stack);
-    res.status(500).json({ 
+    res.status(500).json({
       msg: 'Server error while creating post',
       error: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
@@ -63,7 +63,7 @@ router.get('/', auth, async (req, res) => {
       .sort({ createdAt: -1 })
       .populate('user', 'name image basicInfo.sport country')
       .populate('comments.user', 'name image');
-    
+
     res.json(posts);
   } catch (err) {
     console.error('Error fetching posts:', err);
@@ -100,7 +100,7 @@ router.put('/:id/like', auth, async (req, res) => {
 router.post('/:id/comments', auth, async (req, res) => {
   try {
     const { content } = req.body;
-    
+
     if (!content || content.trim().length === 0) {
       return res.status(400).json({ msg: 'Comment content cannot be empty' });
     }
@@ -117,10 +117,10 @@ router.post('/:id/comments', auth, async (req, res) => {
 
     post.comments.unshift(newComment);
     await post.save();
-    
+
     // Populate the new comment's user data
     await post.populate('comments.user', 'name image');
-    
+
     res.status(201).json(post.comments);
   } catch (err) {
     console.error('Error adding comment:', err);

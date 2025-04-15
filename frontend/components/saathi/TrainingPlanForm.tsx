@@ -38,7 +38,7 @@ export default function TrainingPlanForm({ onSubmit, isLoading }: TrainingPlanFo
         <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow-md">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Age</label>
+                    <label className="block text-sm font-medium text-gray-700">age</label>
                     <input
                         type="number"
                         name="age"

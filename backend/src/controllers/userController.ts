@@ -27,9 +27,9 @@ export const updateUserProfile = async (req: AuthRequest, res: Response) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        const { 
-            birthdate, gender, location, whySponsorMe,  sport,
-            awardsAccolades, gallery, profileStatus, team 
+        const {
+            birthdate, gender, location, whySponsorMe, sport,
+            awardsAccolades, gallery, profileStatus, team
         } = req.body;
 
         // Ensure nested objects exist before updating
@@ -45,7 +45,7 @@ export const updateUserProfile = async (req: AuthRequest, res: Response) => {
         // console.log("Updated sport value before saving:", user.sport);
         // await user.save();
         // console.log("User saved successfully");
-        
+
         user.awardsAccolades = awardsAccolades ?? user.awardsAccolades;
         user.gallery = gallery ?? user.gallery;
 

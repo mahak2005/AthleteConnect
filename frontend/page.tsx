@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import {  Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 // import { cn } from "@/lib/utils"
@@ -156,7 +156,7 @@ export default function Home() {
         </div>
       </section>
 
-     
+
 
       {/* Why Choose Us */}
       <section className="py-12 md:py-20 bg-white">

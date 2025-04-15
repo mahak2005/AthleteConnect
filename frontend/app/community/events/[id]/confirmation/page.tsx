@@ -95,7 +95,7 @@ export default function RegistrationConfirmationPage() {
 
   return (
     <section className="pt-24 pb-12 bg-gradient-to-b from-teal-500 to-teal-400">
-    <Navbar/>
+      <Navbar />
       <div className="container py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

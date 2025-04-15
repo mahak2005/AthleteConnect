@@ -53,8 +53,8 @@
 //   interface LoginModalProps {
 //     onClose: () => void;
 //   }
-  
-  
+
+
 //   return (
 //     <Dialog open={modalType === "login"} onOpenChange={closeModal}>
 //       <DialogContent className="sm:max-w-md">
@@ -148,19 +148,19 @@ export function LoginModal() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     // Hardcoded login success
     login("fake-token", "fake-id"); // ✅ Simulate login
     closeModal();
     router.push("/user"); // ✅ Redirect to user/page.tsx
   };
-  
+
 
   // interface LoginModalProps {
   //   onClose: () => void;
   // }
-  
-  
+
+
   return (
     <Dialog open={modalType === "login"} onOpenChange={closeModal}>
       <DialogContent className="sm:max-w-md">

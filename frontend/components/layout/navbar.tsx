@@ -17,10 +17,11 @@ const navItems = [
   { name: "Home", path: "/" },
   { name: "Match With Athletes", path: "/match-with-athletes" },
   { name: "Find Your Coach", path: "/find-your-coach" },
-  { name: "Events", path: "/events" },
+  // { name: "Events", path: "/events" },
   { name: "Community", path: "/community" },
+  { name: "Saathi", path: "/saathi" },
   { name: "Plans", path: "/plans" },
-  { name: "Profile", path: "/user" },
+  // { name: "Profile", path: "/user" },
 ]
 
 export function Navbar() {
@@ -86,10 +87,10 @@ export function Navbar() {
                 <Link
                   href={item.path}
                   className={`text-sm font-medium transition-colors ${user && user.role === "athlete" && item.path === "/athlete"
-                      ? "text-teal-600"
-                      : user && user.role === "coach" && item.path === "/coach"
-                        ? "text-green-600"
-                        : "text-slate-600 hover:text-slate-900"
+                    ? "text-teal-600"
+                    : user && user.role === "coach" && item.path === "/coach"
+                      ? "text-green-600"
+                      : "text-slate-600 hover:text-slate-900"
                     }`}
                 >
                   {item.name}
@@ -144,10 +145,10 @@ export function Navbar() {
                     key={item.name}
                     href={item.path}
                     className={`text-sm font-medium transition-colors ${user && user.role === "athlete" && item.path === "/athlete"
-                        ? "text-teal-600"
-                        : user && user.role === "coach" && item.path === "/coach"
-                          ? "text-green-600"
-                          : "text-slate-600 hover:text-slate-900"
+                      ? "text-teal-600"
+                      : user && user.role === "coach" && item.path === "/coach"
+                        ? "text-green-600"
+                        : "text-slate-600 hover:text-slate-900"
                       }`}
                     onClick={() => setIsOpen(false)}
                   >

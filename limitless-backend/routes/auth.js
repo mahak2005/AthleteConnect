@@ -7,10 +7,10 @@ const Athlete = require('../models/Athlete');
 router.post('/register', async (req, res) => {
   try {
     const { email, password, name, country, role } = req.body;
-    
+
     // Validate required fields
     if (!email || !password || !name || !country || !role) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         message: 'All fields are required',
         missing: {
           email: !email,
@@ -24,11 +24,11 @@ router.post('/register', async (req, res) => {
 
     // Validate role
     if (!['athlete', 'coach'].includes(role)) {
-      return res.status(400).json({ 
-        message: 'Invalid role. Must be either athlete or coach' 
+      return res.status(400).json({
+        message: 'Invalid role. Must be either athlete or coach'
       });
     }
-    
+
     // Check if athlete already exists
     const existingAthlete = await Athlete.findOne({ email });
     if (existingAthlete) {
@@ -48,7 +48,7 @@ router.post('/register', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { 
+      {
         id: athlete._id,
         email: athlete.email,
         role: athlete.role
@@ -68,7 +68,7 @@ router.post('/register', async (req, res) => {
     });
   } catch (error) {
     console.error('Registration error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Server error during registration',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
@@ -82,7 +82,7 @@ router.post('/login', async (req, res) => {
 
     // Validate required fields
     if (!email || !password) {
-      return res.status(400).json({ 
+      return res.status(400).json({
         message: 'Email and password are required',
         missing: {
           email: !email,
@@ -105,7 +105,7 @@ router.post('/login', async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { 
+      {
         id: athlete._id,
         email: athlete.email,
         role: athlete.role
@@ -125,7 +125,7 @@ router.post('/login', async (req, res) => {
     });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Server error during login',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });

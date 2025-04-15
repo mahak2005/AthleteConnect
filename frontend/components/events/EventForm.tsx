@@ -53,7 +53,7 @@ export const EventForm: React.FC<EventFormProps> = ({ onEventCreated }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-white rounded-lg shadow">
       <h2 className="text-xl font-semibold">Create New Event</h2>
-      
+
       <div>
         <label className="block text-sm font-medium text-gray-700">Event Name</label>
         <input

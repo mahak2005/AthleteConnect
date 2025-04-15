@@ -306,7 +306,7 @@ export function AIMatchingForm() {
                                 </div>
                                 <div>
                                     <div className="flex justify-between mb-2">
-                                        <Label>Age Range</Label>
+                                        <Label>age Range</Label>
                                         <span className="text-sm font-medium">
                                             {formData.ageRange[0]} - {formData.ageRange[1]} years
                                         </span>

@@ -121,7 +121,7 @@ export function EventCard({ event }: EventProps) {
             )}
           </div>
           <Button className="bg-teal-700 hover:bg-teal-500"
-          onClick={() => router.push(`/events/${event.id}`)}>Apply now</Button>
+            onClick={() => router.push(`/events/${event.id}`)}>Apply now</Button>
         </div>
       </div>
     </div>

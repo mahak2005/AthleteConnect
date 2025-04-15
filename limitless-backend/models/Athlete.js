@@ -20,7 +20,7 @@ const athleteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  image: {
+  imAge: {
     type: String,
     default: "/ath.jpg"
   },
@@ -60,14 +60,14 @@ const athleteSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Hash password before saving
-athleteSchema.pre('save', async function(next) {
+athleteSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
 // Method to compare password
-athleteSchema.methods.comparePassword = async function(candidatePassword) {
+athleteSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
