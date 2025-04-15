@@ -3,15 +3,14 @@
 import { useState } from 'react';
 import TrainingPlanForm from '@/components/saathi/TrainingPlanForm';
 import TrainingPlanDisplay from '@/components/saathi/TrainingPlanDisplay';
-import { TrainingPlan } from '@/types/training';
+import { TrainingPlan, TrainingFormData } from '@/types/training';
 import { Navbar } from '@/components/layout/navbar';
 
 export default function SaathiPage() {
-
     const [trainingPlan, setTrainingPlan] = useState<TrainingPlan | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleFormSubmit = async (formData: any) => {
+    const handleFormSubmit = async (formData: TrainingFormData) => {
         setIsLoading(true);
         try {
             const response = await fetch('/api/generate-plan', {
@@ -26,7 +25,7 @@ export default function SaathiPage() {
                 throw new Error('Failed to generate training plan');
             }
 
-            const data = await response.json();
+            const data: TrainingPlan = await response.json();
             setTrainingPlan(data);
         } catch (error) {
             console.error('Error generating training plan:', error);
@@ -50,4 +49,4 @@ export default function SaathiPage() {
             </div>
         </div>
     );
-} 
+}
